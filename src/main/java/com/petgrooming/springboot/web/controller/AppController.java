@@ -102,13 +102,7 @@ public class AppController {
     	Appointment appointment = new Appointment();
     	appointment.setClient(clientService.findClientById(client.getId()));
     	
-    	List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
-    	List <AvailableDog> availableDogList = availableDogService.findAllDogs();
-    	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
-    	model.addAttribute(groomingOptionList);
-    	model.addAttribute(availableDogList);
-    	model.addAttribute(timeSlotList);
-    	model.addAttribute(appointment);
+    	populateAppointmentDropDown(model, appointment);
     	return "bookAppointment";
     }
     
