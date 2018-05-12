@@ -120,26 +120,14 @@ public class AppController {
     	if(!check) {
     		FieldError timeslotError =new FieldError("appointment","appointmentDate","Appointments can be boooked only after today.");
             result.addError(timeslotError);
-            List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
-        	List <AvailableDog> availableDogList = availableDogService.findAllDogs();
-        	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
-        	model.addAttribute(groomingOptionList);
-        	model.addAttribute(availableDogList);
-        	model.addAttribute(timeSlotList);
-        	model.addAttribute(appointment);
+            populateAppointmentDropDown(model, appointment);
     		return "bookAppointment";
     	}
     	boolean isValidAppointment = appointmentService.saveAppointment(appointment);
     	if(!isValidAppointment) {
     		FieldError timeslotError =new FieldError("appointment","timeslot","This time slot is already taken. Please select another time slot");
             result.addError(timeslotError);
-            List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
-        	List <AvailableDog> availableDogList = availableDogService.findAllDogs();
-        	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
-        	model.addAttribute(groomingOptionList);
-        	model.addAttribute(availableDogList);
-        	model.addAttribute(timeSlotList);
-        	model.addAttribute(appointment);
+            populateAppointmentDropDown(model, appointment);
     		return "bookAppointment";
     	}else {
     		return "home"; 
@@ -151,4 +139,14 @@ public class AppController {
         return DateTimeComparator.getDateOnlyInstance().compare(date, DateTime.now()) > 0;
     }
 
+    private ModelMap populateAppointmentDropDown(ModelMap model, Appointment appointment) {
+    	List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
+    	List <AvailableDog> availableDogList = availableDogService.findAllDogs();
+    	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
+    	model.addAttribute(groomingOptionList);
+    	model.addAttribute(availableDogList);
+    	model.addAttribute(timeSlotList);
+    	model.addAttribute(appointment);
+    	return model;
+    }
 }
