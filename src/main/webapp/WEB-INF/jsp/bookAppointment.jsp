@@ -22,7 +22,7 @@ pageEncoding="ISO-8859-1"%>
                 <li class="navHead" data-val="bookAppointment"><a href="#">Book Appointments</a></li>
             </ul>
             <div class="pull-right">
-                <a class="navbar-brand logout" href="#">Log out</a>
+                <a class="navbar-brand logout" href="/app/">Log out</a>
             </div>
         </div>
     </nav>

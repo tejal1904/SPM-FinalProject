@@ -101,7 +101,6 @@ public class AppController {
     	System.out.println("client: -> "+client.toString());
     	Appointment appointment = new Appointment();
     	appointment.setClient(clientService.findClientById(client.getId()));
-    	
     	populateAppointmentDropDown(model, appointment);
     	return "bookAppointment";
     }
@@ -112,7 +111,7 @@ public class AppController {
     	System.out.println("in save appointment");
     	boolean check = isAfterToday(new DateTime(appointment.getAppointmentDate()));
     	if(!check) {
-    		FieldError timeslotError =new FieldError("appointment","appointmentDate","Appointments can be boooked only after today.");
+    		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be boooked only after today.");
             result.addError(timeslotError);
             populateAppointmentDropDown(model, appointment);
     		return "bookAppointment";
