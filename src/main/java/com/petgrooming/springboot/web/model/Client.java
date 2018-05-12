@@ -36,7 +36,7 @@ public class Client {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 	
-	@Size(min=3, max=50)
+	
     @Column(name = "HOMEPHONE", nullable = true)
     private String homePhone;
 	
@@ -44,7 +44,7 @@ public class Client {
     @Column(name = "MOBILENO", nullable = true)
     private String mobile;
 	
-	@Size(min=3, max=50)
+	
     @Column(name = "WORKNO", nullable = true)
     private String workNo;
 	

@@ -131,10 +131,7 @@ public class AppController {
     
     @RequestMapping(value = "/updateClient", method = RequestMethod.POST)
     public String updateClient(ModelMap model, Client client, BindingResult result) {
-    	System.out.println("in update ");
-    	Client oldClient = clientService.findClientById(client.getId());
-    	client.setEmail(oldClient.getEmail());
-    	client.setPassword(oldClient.getPassword());
+    	System.out.println("in update ");    	
     	clientService.updateClient(client);
     	model.addAttribute(client);
 		return "redirect:book";

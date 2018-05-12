@@ -41,6 +41,22 @@ pageEncoding="ISO-8859-1"%>
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="col-sm-4 control-label">EMail</label>
+                            <div class="col-sm-8 controls">
+                                <form:input path="email" type="email" placeholder="email"
+                                            class="input-xlarge" required="required"/>
+                                <form:errors path="email" cssClass="error"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="col-sm-4 control-label">Password</label>
+                            <div class="col-sm-8 controls">
+                                <form:password path="password" placeholder="Password"
+                                               class="input-xlarge" required="required"/>
+                                <form:errors path="password" cssClass="error"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="col-sm-4 control-label">Address</label>
                             <div class="col-sm-8 controls">
                                 <form:input path="address" type="text" placeholder="Address"
@@ -74,9 +90,9 @@ pageEncoding="ISO-8859-1"%>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="control-group">
                             <label for="noOfDogs" class="col-sm-4 control-label">No of dogs</label>
-                            <div class="col-sm- controls">
+                            <div class="col-sm-8 controls">
                                 <select class="form-control" id="noOfDogs">
                                     <option>1</option>
                                     <option>2</option>
@@ -86,14 +102,40 @@ pageEncoding="ISO-8859-1"%>
                                 </select>
                             </div>
                         </div>
+                    </br>
+                        <div class="control-group">
+                            <label class="col-sm-4 control-label">Dog Name</label>
+                            <div class="col-sm-8 controls">
+                                <input name="homeNumber" type="text" placeholder="Name"
+                                            class="input-xlarge"/>
+                            </div>
+                        </div>
+                    </br>
+                        <div class="control-group">
+                            <label class="col-sm-4 control-label">Dog breed</label>
+                            <div class="col-sm-8 controls">
+                            <input name="dogBreed" type="text" placeholder="Dog breed"
+                                            class="input-xlarge"/>
+                                            </div>
+                        </div>
+                    </br>
+                           <div class="control-group">
+	                            <label class="col-sm-4 control-label">Date of birth</label>
+	                            <div class="col-sm-8 controls">
+	                            <input type="date" path="dateofbirth" />                             
+                            </div>
+                        </div>
                     </div>
                     </br>
-                    </br>
                     <div class="form-group control-group">
+                        <div class="control-group">
+                            <span style="color:red;" class="red">Please enter correct username</span>
+                        </div>
                         <div class="col-sm-3 col-sm-offset-5">
                             <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
                         </div>
                     </div>
+
                 </form:form>
             </div>
 
@@ -156,9 +198,11 @@ pageEncoding="ISO-8859-1"%>
                     </br>
                     </br>
                     <div class="form-group control-group">
+
                         <div class="col-sm-5 col-sm-offset-4">
                             <button type="submit" name = "appointmentSave" value="appointmentSave" id="saveBtn" class="btn btn-primary btn-block">Save Appointment</button>
                         </div>
+
                     </div>
                 </form:form>
             </div>
