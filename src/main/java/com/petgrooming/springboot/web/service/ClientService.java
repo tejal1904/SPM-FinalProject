@@ -9,5 +9,7 @@ public interface ClientService {
 	void saveNewClient(Client client);
 	
 	public Client findClientById(int id);
+	
+	public void saveOrUpdateClient(Client client);
 
 }

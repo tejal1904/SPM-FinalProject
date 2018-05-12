@@ -9,5 +9,7 @@ public interface ClientDAO {
 	public void save(Client client);
 	
 	public Client getClientById(int id); 
+	
+	public void saveOrUpdate(Client client);
 
 }

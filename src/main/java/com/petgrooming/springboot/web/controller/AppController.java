@@ -111,7 +111,7 @@ public class AppController {
     	System.out.println("in save appointment");
     	boolean check = isAfterToday(new DateTime(appointment.getAppointmentDate()));
     	if(!check) {
-    		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be boooked only after today.");
+    		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be booked only after today.");
             result.addError(timeslotError);
             populateAppointmentDropDown(model, appointment);
     		return "bookAppointment";
@@ -126,6 +126,13 @@ public class AppController {
     		return "home"; 
     	}
     	  
+    }
+    
+    @RequestMapping(value = "/updateClient", method = RequestMethod.POST)
+    public String updateClient(ModelMap model, Client client, BindingResult result) {
+    	Client oldClient = clientService.findClientById(client.getId());
+    	clientService.saveOrUpdateClient(oldClient);
+		return "redirect:book";
     }
     
     private static boolean isAfterToday(DateTime date) {

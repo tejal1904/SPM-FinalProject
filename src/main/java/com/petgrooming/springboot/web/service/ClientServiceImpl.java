@@ -17,7 +17,6 @@ public class ClientServiceImpl implements ClientService {
 	
 	public boolean isNewClient(Client client) {
 		return clientDAO.checkNewClient(client);
-		
 	}
 
 	public void saveNewClient(Client client) {
@@ -27,5 +26,10 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public Client findClientById(int id) {
 		return clientDAO.getClientById(id);
+	}
+
+	@Override
+	public void saveOrUpdateClient(Client client) {
+		clientDAO.saveOrUpdate(client);
 	}
 }
