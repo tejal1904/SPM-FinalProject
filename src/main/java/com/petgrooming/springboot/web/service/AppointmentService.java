@@ -4,6 +4,6 @@ import com.petgrooming.springboot.web.model.Appointment;
 
 public interface AppointmentService {
 	
-	public void saveAppointment(Appointment appointment);
+	public boolean saveAppointment(Appointment appointment);
 
 }

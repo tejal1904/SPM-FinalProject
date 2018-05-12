@@ -1,15 +1,25 @@
 package com.petgrooming.springboot.web.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -103,12 +113,42 @@ public class AppController {
     }
     
     @RequestMapping(value = "/appointmentSave", method = RequestMethod.POST)
-    public String appointmentSave(Appointment appointment)
+    public String appointmentSave(ModelMap model,Appointment appointment, BindingResult result)
     {
     	System.out.println("in save appointment");
-    	appointmentService.saveAppointment(appointment);
-    	
-    	return "home";   
+    	boolean check = isAfterToday(new DateTime(appointment.getAppointmentDate()));
+    	if(!check) {
+    		FieldError timeslotError =new FieldError("appointment","appointmentDate","Appointments can be boooked only after today.");
+            result.addError(timeslotError);
+            List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
+        	List <AvailableDog> availableDogList = availableDogService.findAllDogs();
+        	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
+        	model.addAttribute(groomingOptionList);
+        	model.addAttribute(availableDogList);
+        	model.addAttribute(timeSlotList);
+        	model.addAttribute(appointment);
+    		return "bookAppointment";
+    	}
+    	boolean isValidAppointment = appointmentService.saveAppointment(appointment);
+    	if(!isValidAppointment) {
+    		FieldError timeslotError =new FieldError("appointment","timeslot","This time slot is already taken. Please select another time slot");
+            result.addError(timeslotError);
+            List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
+        	List <AvailableDog> availableDogList = availableDogService.findAllDogs();
+        	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
+        	model.addAttribute(groomingOptionList);
+        	model.addAttribute(availableDogList);
+        	model.addAttribute(timeSlotList);
+        	model.addAttribute(appointment);
+    		return "bookAppointment";
+    	}else {
+    		return "home"; 
+    	}
+    	  
+    }
+    
+    private static boolean isAfterToday(DateTime date) {
+        return DateTimeComparator.getDateOnlyInstance().compare(date, DateTime.now()) > 0;
     }
 
 }
