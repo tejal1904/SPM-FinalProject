@@ -10,6 +10,6 @@ public interface ClientDAO {
 	
 	public Client getClientById(int id); 
 	
-	public void saveOrUpdate(Client client);
+	public void update(Client client);
 
 }

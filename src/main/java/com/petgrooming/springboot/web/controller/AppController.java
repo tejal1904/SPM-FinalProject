@@ -101,6 +101,7 @@ public class AppController {
     	System.out.println("client: -> "+client.toString());
     	Appointment appointment = new Appointment();
     	appointment.setClient(clientService.findClientById(client.getId()));
+    	model.addAttribute(clientService.findClientById(client.getId()));
     	populateAppointmentDropDown(model, appointment);
     	return "bookAppointment";
     }
@@ -130,8 +131,12 @@ public class AppController {
     
     @RequestMapping(value = "/updateClient", method = RequestMethod.POST)
     public String updateClient(ModelMap model, Client client, BindingResult result) {
+    	System.out.println("in update ");
     	Client oldClient = clientService.findClientById(client.getId());
-    	clientService.saveOrUpdateClient(oldClient);
+    	client.setEmail(oldClient.getEmail());
+    	client.setPassword(oldClient.getPassword());
+    	clientService.updateClient(client);
+    	model.addAttribute(client);
 		return "redirect:book";
     }
     

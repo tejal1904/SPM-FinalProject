@@ -38,8 +38,8 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	}
 	
 	
-	public void saveOrUpdate(Client client) {
-		getSession().saveOrUpdate(client);
+	public void update(Client client) {
+		getSession().update(client);
 	}
 
 }

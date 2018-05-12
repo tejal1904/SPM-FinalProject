@@ -30,7 +30,7 @@ pageEncoding="ISO-8859-1"%>
     <div class="container">
         <div id = "clientInformation" class="navContent">
             <div class="clientDetails">
-                <form:form method="POST" modelAttribute="client">
+                <form:form method="POST" modelAttribute="client" action = "/app/updateClient">
                     <form:input type="hidden" path="id" id="id"/>
                     <div class="col-sm-6">
                         <div class="control-group">

@@ -29,7 +29,7 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public void saveOrUpdateClient(Client client) {
-		clientDAO.saveOrUpdate(client);
+	public void updateClient(Client client) {
+		clientDAO.update(client);
 	}
 }
