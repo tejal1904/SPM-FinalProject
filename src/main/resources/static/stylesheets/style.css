@@ -1,0 +1,169 @@
+body{
+    background-image:url('resources/dogBackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: cursive;
+}
+
+.mainContainer {
+    background-color: black;
+
+    height: 100vh;
+}
+h1 {
+    font-size: xx-large;
+    font-family: cursive;
+    text-align: center;
+    padding: 30px;
+}
+.wrapper {
+    position: absolute;
+    left: 80%;
+    top: 55%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: 250px;
+    width: 400px;
+    font-size: large;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    background-color: black;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: black;
+    float: left;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    width: 50%;
+}
+
+td {
+    width: 200px;
+}
+tr {
+    padding-top: 10px;
+}
+
+input {
+    background-color: black;
+    border-bottom-style: dashed;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    height:50px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px black inset;
+    -webkit-text-fill-color: white !important;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #4d4d4d;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #666666;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+#register-form{
+    padding: 5px;
+}
+
+#register-form .button-block,#login .button-block {
+    position: relative;
+    left: 43%;
+    margin-top:40px;
+    background-color: black;
+    border-style: dashed;
+    padding: 3px;
+}
+
+.container-fluid {
+    background-color: #666666;
+    color: #f2f2f2;
+}
+
+#saveBtn {
+    margin-top: 15px;
+}
+.container {
+    margin-left:40px;
+
+}
+
+*[role="form"] h3 {
+    margin-left: 40px;
+    margin-top: 0px;
+}
+.clientDetails input {
+    width: 350px;
+}
+.clientDetails select {
+    background-color: black;
+    color: white;
+}
+.clientDetails option {
+    color: white;
+}
+.clientDetails .control-label {
+    margin-top: 15px;
+}
+
+.bookAppointmentClass input {
+    width: 330px;
+}
+.bookAppointmentClass select {
+    background-color: black;
+    color: white;
+}
+.bookAppointmentClass option {
+    color: white;
+}
+
+.bookAppointmentClass .control-label {
+    margin-top: 15px;
+}
+
+.bookAppointmentClass form{
+    max-width: 600px;
+    padding: 15px;
+    margin: 0 auto;
+    border-radius: 0.3em;
+}
+
+.bookAppointmentClass .control-group {
+	padding: 15px;
+}
+
+	
