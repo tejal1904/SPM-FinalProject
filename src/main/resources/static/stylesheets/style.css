@@ -8,7 +8,6 @@ body{
 
 .mainContainer {
     background-color: black;
-
     height: 100vh;
 }
 h1 {
@@ -162,8 +161,11 @@ input:-webkit-autofill {
     border-radius: 0.3em;
 }
 
-.bookAppointmentClass .control-group {
+.control-group {
 	padding: 15px;
 }
 
+#updateClient {
+    margin-top: 20px;
+}
 	

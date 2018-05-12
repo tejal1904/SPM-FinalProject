@@ -30,70 +30,46 @@ pageEncoding="ISO-8859-1"%>
     <div class="container">
         <div id = "clientInformation" class="navContent">
             <div class="clientDetails">
-                <form role="form">
+                <form:form method="POST" modelAttribute="client">
+                    <form:input type="hidden" path="id" id="id"/>
                     <div class="col-sm-6">
                         <div class="control-group">
                             <label for="firstName" class="col-sm-4 control-label">Full Name</label>
                             <div class="col-sm-8 controls">
-                                <input type="text" id="firstName" placeholder="Full Name" autofocus>
+                                <form:input path="name" type="text" id="firstName" placeholder="Full Name" required="required"/>
+                                <form:errors path="name" cssClass="error"/>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="col-sm-4 control-label">Address Line 1</label>
+                            <label class="col-sm-4 control-label">Address</label>
                             <div class="col-sm-8 controls">
-                                <input id="address-line1" name="address-line1" type="text" placeholder="Street address, P.O. box, company name, c/o"
-                                       class="input-xlarge">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Address Line 2</label>
-                            <div class="col-sm-8 controls">
-                                <input id="address-line2" name="address-line2" type="text" placeholder="Apartment, suite , unit, building, floor, etc."
-                                       class="input-xlarge">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Suburb</label>
-                            <div class="col-sm-8 controls">
-                                <input id="suburb" name="suburb" type="text" placeholder="Suburb" class="input-xlarge">
-                                <p class="help-block"></p>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">State / Province / Region</label>
-                            <div class="col-sm-8 controls">
-                                <input id="region" name="region" type="text" placeholder="state / province / region"
-                                       class="input-xlarge">
-                                <p class="help-block"></p>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Zip / Postal Code</label>
-                            <div class="col-sm-8 controls">
-                                <input id="postal-code" name="postal-code" type="number" placeholder="zip or postal code"
-                                       class="input-xlarge">
-                                <p class="help-block"></p>
+                                <form:input path="address" type="text" placeholder="Address"
+                                            class="input-xlarge" required="required"/>
+                                <form:errors path="address" cssClass="error"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="col-sm-4 control-label">Mobile Number</label>
                             <div class="col-sm-8 controls">
-                                <input id="mobileNumber" name="mobileNumber" type="number" placeholder="61(number)"
-                                       class="input-xlarge">
+                                <form:input path="mobile" id="mobileNumber" name="mobileNumber" type="number" placeholder="61(number)"
+                                            class="input-xlarge" required="required"/>
+                                <form:errors path="mobile" cssClass="error"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="col-sm-4 control-label">Home Number</label>
                             <div class="col-sm-8 controls">
-                                <input id="homeNumber" name="homeNumber" type="number" placeholder="61(number)"
-                                       class="input-xlarge">
+                                <form:input path="homePhone" id="homeNumber" name="homeNumber" type="number" placeholder="61(number)"
+                                            class="input-xlarge"/>
+                                <form:errors path="homePhone" cssClass="error"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="col-sm-4 control-label">Work Phone Number</label>
                             <div class="col-sm-8 controls">
-                                <input id="workNumber" name="workNumber" type="number" placeholder="61(number)"
-                                       class="input-xlarge">
+                                <form:input path="workNo" id="workNumber" name="workNumber" type="number" placeholder="61(number)"
+                                            class="input-xlarge"/>
+                                <form:errors path="workNo" cssClass="error"/>
                             </div>
                         </div>
                     </div>
@@ -111,13 +87,14 @@ pageEncoding="ISO-8859-1"%>
                             </div>
                         </div>
                     </div>
-
+                    </br>
+                    </br>
                     <div class="form-group control-group">
                         <div class="col-sm-3 col-sm-offset-5">
-                            <button type="submit" id="saveBtn" class="btn btn-primary btn-block">Save</button>
+                            <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
                         </div>
                     </div>
-                </form>
+                </form:form>
             </div>
 
         </div>
@@ -136,20 +113,20 @@ pageEncoding="ISO-8859-1"%>
                             </form:select>
                         </div>
                     </div>
-                    </br>                                     
+                    </br>
                     <div class="control-group">
-                    	<label class="col-sm-4 control-label">Date for Appointment</label>
+                        <label class="col-sm-4 control-label">Date for Appointment</label>
                         <div class="col-sm-8 controls">
-                           <form:input type="date" path="appointmentDate" />
-                           <form:errors path="appointmentDate" cssClass="error"/>
+                            <form:input type="date" path="appointmentDate" />
+                            <form:errors path="appointmentDate" cssClass="error"/>
                         </div>
                     </div>
                     </br>
                     </br>
                     <div class="control-group">
-                    	<label class="col-sm-4 control-label">Select time slot</label>
+                        <label class="col-sm-4 control-label">Select time slot</label>
                         <div class="col-sm-8 controls">
-                           <form:select path="timeslot.timeSlotId" class="form-control">
+                            <form:select path="timeslot.timeSlotId" class="form-control">
                                 <%-- <form:option value="NONE" label="--- Select ---"/> --%>
                                 <form:options items="${timeSlotList}" itemValue = "timeSlotId" itemLabel = "timeStart" />
                             </form:select>
@@ -158,10 +135,10 @@ pageEncoding="ISO-8859-1"%>
                     </div>
                     </br>
                     </br>
-                     <div class="control-group">
-                    	<label class="col-sm-4 control-label">Select Dog</label>
+                    <div class="control-group">
+                        <label class="col-sm-4 control-label">Select Dog</label>
                         <div class="col-sm-8 controls">
-                          <form:select path="availableDog.DogId"  class="form-control">
+                            <form:select path="availableDog.DogId"  class="form-control">
                                 <%-- <form:option value="NONE" label="--- Select ---"/> --%>
                                 <form:options items="${availableDogList}" itemValue = "DogId" itemLabel = "breed"/>
                             </form:select>
@@ -169,20 +146,20 @@ pageEncoding="ISO-8859-1"%>
                         </div>
                     </div>
                     </br>
-  					<div class="control-group">
-                    	<label class="col-sm-4 control-label">Additional Comments</label>
+                    <div class="control-group">
+                        <label class="col-sm-4 control-label">Additional Comments</label>
                         <div class="col-sm-8 controls">
-                          <form:input path="comment" />
-                          <form:errors path="comment" cssClass="error"/>
+                            <form:input path="comment" />
+                            <form:errors path="comment" cssClass="error"/>
                         </div>
                     </div>
                     </br>
                     </br>
-                     <div class="form-group control-group">
+                    <div class="form-group control-group">
                         <div class="col-sm-5 col-sm-offset-4">
                             <button type="submit" name = "appointmentSave" value="appointmentSave" id="saveBtn" class="btn btn-primary btn-block">Save Appointment</button>
                         </div>
-                    </div>                    
+                    </div>
                 </form:form>
             </div>
 

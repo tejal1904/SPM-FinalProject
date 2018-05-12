@@ -34,14 +34,14 @@ pageEncoding="ISO-8859-1"%>
                 <tr>
                     <td>E-Mail</td>
                     <td >
-                        <form:input path="email" id="signup-email" type="email" placeholder="Email"/>
+                        <form:input path="email" id="signup-email" type="email" placeholder="Email" required="required"/>
                     </td>
                     <td><form:errors path="email" cssClass="error"/></td>
                 </tr>
                 <tr>
                     <td>Password</td>
                     <td>
-                        <form:password path="password" id="signup-password" placeholder="Password"/>
+                        <form:password path="password" id="signup-password" placeholder="Password" required="required"/>
                     </td>
                     <td><form:errors path="password" cssClass="error"/></td>
                 </tr>
@@ -58,14 +58,14 @@ pageEncoding="ISO-8859-1"%>
                 <tr>
                     <td>E-Mail</td>
                     <td >
-                        <form:input path="email" id="login-email" type="email" placeholder="Email"/>
+                        <form:input path="email" id="login-email" type="email" placeholder="Email" required="required"/>
                     </td>
                     <td><form:errors path="email" cssClass="error"/></td>
                 </tr>
                 <tr>
                     <td>Password</td>
                     <td>
-                        <form:password path="password" id="login-password" placeholder="Password"/>
+                        <form:password path="password" id="login-password" placeholder="Password" required="required"/>
                     </td>
                     <td><form:errors path="password" cssClass="error"/></td>
                 </tr>
