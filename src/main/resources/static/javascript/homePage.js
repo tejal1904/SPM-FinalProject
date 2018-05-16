@@ -3,7 +3,7 @@ $(function(){
     $('.navHead').on('click',function(e){
         var name = e.target.parentElement.getAttribute('data-val');
         handleTab(e,name);
-    });
+    });    
 
     function handleTab(evt,name){
         // Declare all variables
@@ -25,5 +25,57 @@ $(function(){
         document.getElementById(name).style.display = "block";
         evt.currentTarget.className += " active";
     }
+    
+    $('#noOfDogs').change(function(evt){
+    	$('#dog-info-container').empty();        
+        var number = $(this).val();
+        for(i = 0; i< number; i++){
+            $("#dog-info-container").append(
+            	       '    <div class="control-group">\n' +
+                       '                            <label class="col-sm-4 control-label">Dog Name</label>\n' +
+                       '                            <div class="col-sm-8 controls">\n' +
+                       '                                <input id="dogname-'+i+'" name="homeNumber" type="text" placeholder="Name"\n' +
+                       '                                            class="input-xlarge"/>\n' +
+                       '                            </div>\n' +
+                       '                        </div>\n' +
+                       '                    </br>\n' +
+                       '                        <div class="control-group">\n' +
+                       '                            <label class="col-sm-4 control-label">Dog breed</label>\n' +
+                       '                            <div class="col-sm-8 controls">\n' +
+                       '                            <input id="dogbreed-'+i+'" name="dogBreed" type="text" placeholder="Dog breed"\n' +
+                       '                                            class="input-xlarge"/>\n' +
+                       '                                            </div>\n' +
+                       '                        </div>\n' +
+                       '                    </br>\n' +
+                       '                           <div class="control-group">\n' +
+                       '\t                            <label class="col-sm-4 control-label">Date of birth</label>\n' +
+                       '\t                            <div class="col-sm-8 controls">\n' +
+                       '\t                            <input id="dogdob-'+i+'" type="date" path="dateofbirth" />                             \n' +
+                       '                            </div>\n' +
+                       '                        </div>\n' +
+                       '                    </div>\n' +
+                       '                    </br>'
+             
+            );
+        }
 
+    }).change();
+
+    $('#client-info-form').on('submit',function(event){
+    	var dogs = parseInt($(this).find('#noOfDogs').val());
+    	var dogData = [];
+    	for(i=0;i < dogs; i++){
+    		var dogObj = {};
+    		dogObj['dogName'] = $(this).find('#dogname-'+i+'').val();
+    		dogObj['dogBreed'] = $(this).find('#dogbreed-'+i+'').val();
+    		dogObj['dogdob'] =$(this).find('#dogdob-'+i+'').val();
+    		dogData.push(dogObj);
+    	}
+    	$.ajax({
+            type: "POST",
+            url: '/sendDogInfo',
+            contentType: 'application/json',
+            data: dogData
+    	});    
+    });
 });
