@@ -67,7 +67,7 @@ public class HibernateConfiguration {
 //        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         
-        properties.put("hibernate.show_sql", true);
+        properties.put("hibernate.show_sql", false);
         properties.put("hibernate.format_sql", true);
         properties.put("hibernate.globally_quoted_identifiers", true);
         //properties.put("hibernate.hbm2ddl.import_files", "import.sql");

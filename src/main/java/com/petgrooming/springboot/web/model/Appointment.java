@@ -35,17 +35,9 @@ public class Appointment {
 	@JoinColumn(name = "DAY_ID")
 	private Days day;
 	
-	/*@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-	private TimeSlot timeslot;*/
-	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="TIMESLOT_ID")
 	private TimeSlot timeslot;
-	
-	/*@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-	private AvailableDog availableDog;*/
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DOG_ID")

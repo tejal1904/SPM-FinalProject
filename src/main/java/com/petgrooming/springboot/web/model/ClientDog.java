@@ -2,6 +2,7 @@ package com.petgrooming.springboot.web.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class ClientDog {
 	@Column(name = "CLIENT_DOG_ID")
     private int clientDogId;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="CLIENT_ID")
 	private Client client;
 	

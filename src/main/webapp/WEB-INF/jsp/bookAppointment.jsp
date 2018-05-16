@@ -107,35 +107,10 @@ pageEncoding="ISO-8859-1"%>
                     
                     </div> 
                     </div>
-                    
-                <!--         <div class="control-group">
-                            <label class="col-sm-4 control-label">Dog Name</label>
-                            <div class="col-sm-8 controls">
-                                <input name="homeNumber" type="text" placeholder="Name"
-                                            class="input-xlarge"/>
-                            </div>
-                        </div>
-                    </br>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Dog breed</label>
-                            <div class="col-sm-8 controls">
-                            <input name="dogBreed" type="text" placeholder="Dog breed"
-                                            class="input-xlarge"/>
-                                            </div>
-                        </div>
-                    </br>
-                           <div class="control-group">
-	                            <label class="col-sm-4 control-label">Date of birth</label>
-	                            <div class="col-sm-8 controls">
-	                            <input type="date" path="dateofbirth" />                             
-                            </div>
-                        </div>
-                    </div> -->
+                  
                     </br> 
                     <div class="form-group control-group">
-                      <!--   <div class="control-group">
-                            <span style="color:red;" class="red">Please enter correct username</span>
-                        </div> -->
+                   
                         <div class="col-sm-3 col-sm-offset-5">
                             <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
                         </div>

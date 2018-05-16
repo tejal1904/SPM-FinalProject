@@ -32,9 +32,10 @@ $(function(){
         for(i = 0; i< number; i++){
             $("#dog-info-container").append(
             	       '    <div class="control-group">\n' +
+            	       '		<form id = "clientDogPojo">' +
                        '                            <label class="col-sm-4 control-label">Dog Name</label>\n' +
                        '                            <div class="col-sm-8 controls">\n' +
-                       '                                <input id="dogname-'+i+'" name="homeNumber" type="text" placeholder="Name"\n' +
+                       '                                <input id="name-'+i+'" name="homeNumber" type="text" placeholder="Name"\n' +
                        '                                            class="input-xlarge"/>\n' +
                        '                            </div>\n' +
                        '                        </div>\n' +
@@ -42,7 +43,7 @@ $(function(){
                        '                        <div class="control-group">\n' +
                        '                            <label class="col-sm-4 control-label">Dog breed</label>\n' +
                        '                            <div class="col-sm-8 controls">\n' +
-                       '                            <input id="dogbreed-'+i+'" name="dogBreed" type="text" placeholder="Dog breed"\n' +
+                       '                            <input id="breed-'+i+'" name="dogBreed" type="text" placeholder="Dog breed"\n' +
                        '                                            class="input-xlarge"/>\n' +
                        '                                            </div>\n' +
                        '                        </div>\n' +
@@ -50,9 +51,10 @@ $(function(){
                        '                           <div class="control-group">\n' +
                        '\t                            <label class="col-sm-4 control-label">Date of birth</label>\n' +
                        '\t                            <div class="col-sm-8 controls">\n' +
-                       '\t                            <input id="dogdob-'+i+'" type="date" path="dateofbirth" />                             \n' +
+                       '\t                            <input id="dateOfBirth-'+i+'" type="date" path="dateOfBirth" />                             \n' +
                        '                            </div>\n' +
                        '                        </div>\n' +
+                       ' 		</form>' +
                        '                    </div>\n' +
                        '                    </br>'
              
@@ -66,16 +68,18 @@ $(function(){
     	var dogData = [];
     	for(i=0;i < dogs; i++){
     		var dogObj = {};
-    		dogObj['dogName'] = $(this).find('#dogname-'+i+'').val();
-    		dogObj['dogBreed'] = $(this).find('#dogbreed-'+i+'').val();
-    		dogObj['dogdob'] =$(this).find('#dogdob-'+i+'').val();
+    		dogObj['name'] = $(this).find('#name-'+i+'').val();
+    		dogObj['breed'] = $(this).find('#breed-'+i+'').val();
+    		dogObj['dateOfBirth'] =$(this).find('#dateOfBirth-'+i+'').val();
+    		dogObj['clientId'] = $(this).find('#id').val();
     		dogData.push(dogObj);
     	}
     	$.ajax({
             type: "POST",
-            url: '/sendDogInfo',
+            url: '/app/dogDetails',
             contentType: 'application/json',
-            data: dogData
+            data: JSON.stringify(dogData),
+            dataType : 'json'
     	});    
     });
 });

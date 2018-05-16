@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.petgrooming.springboot.web.model.Appointment;
+import com.petgrooming.springboot.web.model.Client;
 
 @Repository("appointmentDao")
 public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implements AppointmentDao{
@@ -24,6 +25,14 @@ public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implem
 			return false;
 		}
 		
+	}
+
+	@Override
+	public List<Appointment> getAll(Client client) {
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.eq("client", client));
+		List<Appointment> appointmentList = criteria.list();
+		return appointmentList;
 	}
 
 }

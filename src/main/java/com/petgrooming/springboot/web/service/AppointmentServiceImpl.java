@@ -1,5 +1,7 @@
 package com.petgrooming.springboot.web.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.petgrooming.springboot.web.dao.AppointmentDao;
 import com.petgrooming.springboot.web.model.Appointment;
+import com.petgrooming.springboot.web.model.Client;
 
 @Service("appointmentService")
 @Transactional
@@ -18,6 +21,11 @@ public class AppointmentServiceImpl implements AppointmentService{
 	@Override
 	public boolean saveAppointment(Appointment appointment) {
 		return appointmentDao.saveAppointment(appointment);
+	}
+
+	@Override
+	public List<Appointment> getAllAppointment(Client client) {
+		return appointmentDao.getAll(client);
 	}
 	
 	
