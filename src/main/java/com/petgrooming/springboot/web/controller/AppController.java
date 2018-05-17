@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.petgrooming.springboot.web.model.Appointment;
 import com.petgrooming.springboot.web.model.Client;
@@ -75,11 +76,12 @@ public class AppController {
      */
     @RequestMapping(params = {"register"}, method = RequestMethod.POST)
     public String registerClien(HttpServletRequest request,
-			HttpServletResponse response, Client client, Model model)
+			HttpServletResponse response, Client client, Model model, RedirectAttributes attributes)
     {
     	if(clientService.isNewClient(client)) {
     		clientService.saveNewClient(client);
     		model.addAttribute(client);
+    		attributes.addFlashAttribute(client);
     		return "redirect:book";
     	}else {
     		return "registration";
@@ -106,35 +108,36 @@ public class AppController {
     	System.out.println("in method");
     	System.out.println("client: -> "+client.toString());
     	client = clientService.findClientById(client.getId());
-    	List<ClientDog> clientDogList = clientDogService.findAllDogsOfClient(client.getId());
+    	//List<ClientDog> clientDogList = clientDogService.findAllDogsOfClient(client.getId());
     	List<Appointment> appointmentList = appointmentService.getAllAppointment(client.getId());
     	Appointment appointment = new Appointment();
     	appointment.setStatus(true);
     	appointment.setClient(client);
     	model.addAttribute(client);
-    	model.addAttribute(clientDogList);
+    	//model.addAttribute(clientDogList);
     	model.addAttribute(appointmentList);
-    	populateAppointmentDropDown(model, appointment, client);
+    	model = populateAppointmentDropDown(model, appointment, client);
     	return "bookAppointment";
     }
     
     @RequestMapping(value = "/appointmentSave", method = RequestMethod.POST)
-    public String appointmentSave(ModelMap model,Appointment appointment, BindingResult result)
+    public String appointmentSave(@RequestParam("clientId") String clientId, ModelMap model,Appointment appointment, BindingResult result)
     {
     	System.out.println("in save appointment");
-    	Client client = clientService.findClientById(appointment.getClient().getId());
+    	Client client = clientService.findClientById(Integer.parseInt(clientId));
     	boolean check = isAfterToday(new DateTime(appointment.getAppointmentDate()));
     	if(!check) {
     		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be booked only after today.");
             result.addError(timeslotError);
-            populateAppointmentDropDown(model, appointment, client);
+            model = populateAppointmentDropDown(model, appointment, client);
     		return "bookAppointment";
     	}
+    	appointment.setClient(client);
     	boolean isValidAppointment = appointmentService.saveAppointment(appointment);
     	if(!isValidAppointment) {
     		FieldError timeslotError =new FieldError("appointment","timeslot","This time slot is already taken. Please select another time slot");
             result.addError(timeslotError);
-            populateAppointmentDropDown(model, appointment, client);
+            model = populateAppointmentDropDown(model, appointment, client);
     		return "bookAppointment";
     	}else {
     		return "home"; 
@@ -144,16 +147,17 @@ public class AppController {
     
     @SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/updateClient", method = RequestMethod.POST)
-    public String updateClient(ModelMap model, Client client, BindingResult result) {
+    public String updateClient(ModelMap model, Client client, BindingResult result, RedirectAttributes attributes) {
     	System.out.println("---------->in update ");  
     	clientService.updateClient(client);
     	model.addAttribute(client);
+    	attributes.addFlashAttribute(client);
 		return "redirect:book";
     }
     
     
     @RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
-    public String dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result) {
+    public String dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result, RedirectAttributes attributes) {
     	System.out.println("---------->in dog details ");  
     	HashSet<ClientDog> dogSet = new HashSet<>();
     	Client client = clientService.findClientById(dogData.get(0).getClientId());
@@ -168,7 +172,7 @@ public class AppController {
     	}
     	client.setDogSet(dogSet);
     	clientService.updateClient(client);
-    	
+    	attributes.addFlashAttribute(client);
     	System.out.println("dogdata: "+ dogData);
 		return "redirect:book";
     }
