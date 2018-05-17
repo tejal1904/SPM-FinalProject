@@ -2,6 +2,7 @@ package com.petgrooming.springboot.web.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +50,7 @@ public class Client {
     @Column(name = "WORKNO", nullable = true)
     private String workNo;
 
-    @OneToMany(fetch = FetchType.EAGER )
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	private Set<ClientDog> dogSet = new HashSet();
     
 	public Client() {
@@ -60,8 +61,6 @@ public class Client {
 		super();
 		this.id = id;
 	}
-
-
 
 	public int getId() {
 		return id;

@@ -165,6 +165,7 @@ public class AppController {
     		clientDog.setClient(client);
     		dogSet.add(clientDog);
     	}
+    	client.setDogSet(dogSet);
     	clientService.updateClient(client);
     	
     	System.out.println("dogdata: "+ dogData);
