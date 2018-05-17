@@ -125,7 +125,7 @@ pageEncoding="ISO-8859-1"%>
             <div class = "bookAppointmentClass">
                 <form:form method="POST" modelAttribute="appointment" action="/app/appointmentSave">
                     <form:input type="hidden" path="appointmentId" id="appointmentId"/>
-                   
+                   <form:input type="hidden" path="client.id" id="clientId"/>
                     <b>${timeslotList}</b>
 
                     <div class="control-group">
@@ -162,9 +162,9 @@ pageEncoding="ISO-8859-1"%>
                     <div class="control-group">
                         <label class="col-sm-4 control-label">Select Dog</label>
                         <div class="col-sm-8 controls">
-                            <form:select path="availableDog.DogId"  class="form-control">
+                            <form:select path="availableDog.clientDogId"  class="form-control">
                                 <%-- <form:option value="NONE" label="--- Select ---"/> --%>
-                                <form:options items="${availableDogList}" itemValue = "DogId" itemLabel = "breed"/>
+                                <form:options items="${availableDogList}" itemValue = "clientDogId" itemLabel = "breed"/>
                             </form:select>
                             <form:errors path="availableDog" cssClass="error"/>
                         </div>

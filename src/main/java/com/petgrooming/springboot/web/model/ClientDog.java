@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,7 +23,7 @@ public class ClientDog {
 	@Column(name = "CLIENT_DOG_ID")
     private int clientDogId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="CLIENT_ID")
 	private Client client;
 	
@@ -37,12 +38,13 @@ public class ClientDog {
     @Column(name = "DOB", nullable = true)
 	private Date dateOfBirth;
 
-	public int getId() {
+	
+	public int getClientDogId() {
 		return clientDogId;
 	}
 
-	public void setId(int id) {
-		this.clientDogId = id;
+	public void setClientDogId(int clientDogId) {
+		this.clientDogId = clientDogId;
 	}
 
 	public Client getClient() {

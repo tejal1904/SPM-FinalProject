@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -24,25 +24,21 @@ public class Appointment {
 	@Column(name = "APPOINTMENT_ID")
     private int appointmentId;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "GROOMING_ID")
     private GroomingOption groomingOption;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CLIENT_ID")
 	private Client client;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DAY_ID")
-	private Days day;
-	
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="TIMESLOT_ID")
 	private TimeSlot timeslot;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DOG_ID")
-	private AvailableDog availableDog;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CLIENT_DOG_ID")
+	private ClientDog availableDog;
 	
 	@Column(name = "COMMENT")
 	private String comment;
@@ -77,14 +73,6 @@ public class Appointment {
 		this.client = client;
 	}
 
-	public Days getDay() {
-		return day;
-	}
-
-	public void setDay(Days day) {
-		this.day = day;
-	}
-
 	public TimeSlot getTimeslot() {
 		return timeslot;
 	}
@@ -93,11 +81,11 @@ public class Appointment {
 		this.timeslot = timeslot;
 	}
 
-	public AvailableDog getAvailableDog() {
+	public ClientDog getAvailableDog() {
 		return availableDog;
 	}
 
-	public void setAvailableDog(AvailableDog availableDog) {
+	public void setAvailableDog(ClientDog availableDog) {
 		this.availableDog = availableDog;
 	}
 
@@ -135,7 +123,6 @@ public class Appointment {
 		result = prime * result + ((availableDog == null) ? 0 : availableDog.hashCode());
 		result = prime * result + ((client == null) ? 0 : client.hashCode());
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((day == null) ? 0 : day.hashCode());
 		result = prime * result + ((groomingOption == null) ? 0 : groomingOption.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((timeslot == null) ? 0 : timeslot.hashCode());
@@ -173,11 +160,6 @@ public class Appointment {
 				return false;
 		} else if (!comment.equals(other.comment))
 			return false;
-		if (day == null) {
-			if (other.day != null)
-				return false;
-		} else if (!day.equals(other.day))
-			return false;
 		if (groomingOption == null) {
 			if (other.groomingOption != null)
 				return false;
@@ -199,7 +181,7 @@ public class Appointment {
 	@Override
 	public String toString() {
 		return "Appointment [appointmentId=" + appointmentId + ", groomingOption=" + groomingOption + ", client="
-				+ client + ", day=" + day + ", timeslot=" + timeslot + ", availableDog=" + availableDog + ", comment="
+				+ client + ", timeslot=" + timeslot + ", availableDog=" + availableDog + ", comment="
 				+ comment + ", status=" + status + ", appointmentDate=" + appointmentDate + "]";
 	}
 

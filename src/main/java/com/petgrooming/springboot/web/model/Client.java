@@ -1,8 +1,10 @@
 package com.petgrooming.springboot.web.model;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,15 +46,15 @@ public class Client {
     @Column(name = "MOBILENO", nullable = true)
     private String mobile;
 	
-	
     @Column(name = "WORKNO", nullable = true)
     private String workNo;
-	
 
+    @OneToMany(fetch = FetchType.EAGER )
+	private Set<ClientDog> dogSet = new HashSet();
+    
 	public Client() {
 		super();
 	}
-	
 
 	public Client(int id) {
 		super();
@@ -123,6 +125,14 @@ public class Client {
 
 	public void setWorkNo(String workNo) {
 		this.workNo = workNo;
+	}
+	
+	public Set<ClientDog> getDogSet() {
+		return dogSet;
+	}
+
+	public void setDogSet(Set<ClientDog> dogSet) {
+		this.dogSet = dogSet;
 	}
 
 	@Override

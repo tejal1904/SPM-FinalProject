@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.servlet.http.HttpServletRequest;
@@ -23,17 +25,16 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.petgrooming.springboot.web.model.Appointment;
-import com.petgrooming.springboot.web.model.AvailableDog;
 import com.petgrooming.springboot.web.model.Client;
 import com.petgrooming.springboot.web.model.ClientDog;
 import com.petgrooming.springboot.web.model.ClientDogPojo;
 import com.petgrooming.springboot.web.model.GroomingOption;
 import com.petgrooming.springboot.web.model.TimeSlot;
 import com.petgrooming.springboot.web.service.AppointmentService;
-import com.petgrooming.springboot.web.service.AvailableDogService;
 import com.petgrooming.springboot.web.service.ClientDogService;
 import com.petgrooming.springboot.web.service.ClientService;
 import com.petgrooming.springboot.web.service.GroomingOptionService;
@@ -45,9 +46,6 @@ public class AppController {
 
 	@Autowired
     ClientService clientService;
-	
-	@Autowired
-	AvailableDogService availableDogService;
 	
 	@Autowired
 	GroomingOptionService groomingOptionService;
@@ -106,35 +104,36 @@ public class AppController {
     public String bookAppointment(ModelMap model, Client client) {
     	System.out.println("in method");
     	System.out.println("client: -> "+client.toString());
-    	Client persistentClient = clientService.findClientById(client.getId());
+    	client = clientService.findClientById(client.getId());
     	List<ClientDog> clientDogList = clientDogService.findAllDogsOfClient(client.getId());
     	List<Appointment> appointmentList = appointmentService.getAllAppointment(client.getId());
     	Appointment appointment = new Appointment();
-    	appointment.setClient(persistentClient);
     	appointment.setStatus(true);
-    	model.addAttribute(persistentClient);
+    	appointment.setClient(client);
+    	model.addAttribute(client);
     	model.addAttribute(clientDogList);
     	model.addAttribute(appointmentList);
-    	populateAppointmentDropDown(model, appointment);
+    	populateAppointmentDropDown(model, appointment, client);
     	return "bookAppointment";
     }
     
     @RequestMapping(value = "/appointmentSave", method = RequestMethod.POST)
-    public String appointmentSave(ModelMap model,Appointment appointment, BindingResult result)
+    public String appointmentSave(@RequestParam("clientId") int clientId, ModelMap model,Appointment appointment, BindingResult result)
     {
     	System.out.println("in save appointment");
+    	Client client = clientService.findClientById(clientId);
     	boolean check = isAfterToday(new DateTime(appointment.getAppointmentDate()));
     	if(!check) {
     		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be booked only after today.");
             result.addError(timeslotError);
-            populateAppointmentDropDown(model, appointment);
+            populateAppointmentDropDown(model, appointment, client);
     		return "bookAppointment";
     	}
     	boolean isValidAppointment = appointmentService.saveAppointment(appointment);
     	if(!isValidAppointment) {
     		FieldError timeslotError =new FieldError("appointment","timeslot","This time slot is already taken. Please select another time slot");
             result.addError(timeslotError);
-            populateAppointmentDropDown(model, appointment);
+            populateAppointmentDropDown(model, appointment, client);
     		return "bookAppointment";
     	}else {
     		return "home"; 
@@ -155,14 +154,19 @@ public class AppController {
     @RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
     public String dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result) {
     	System.out.println("---------->in dog details ");  
+    	HashSet<ClientDog> dogSet = new HashSet<>();
+    	Client client = clientService.findClientById(dogData.get(0).getClientId());
     	for(ClientDogPojo pojo: dogData) {
     		ClientDog clientDog = new ClientDog();
     		clientDog.setClient(clientService.findClientById(pojo.getClientId()));
     		clientDog.setName(pojo.getName());
     		clientDog.setBreed(pojo.getBreed());
     		clientDog.setDateOfBirth(pojo.getDateOfBirth());
-    		clientDogService.saveDog(clientDog);
+    		clientDog.setClient(client);
+    		dogSet.add(clientDog);
     	}
+    	clientService.updateClient(client);
+    	
     	System.out.println("dogdata: "+ dogData);
 		return "redirect:book";
     }
@@ -172,9 +176,13 @@ public class AppController {
         return DateTimeComparator.getDateOnlyInstance().compare(date, DateTime.now()) > 0;
     }
 
-    private ModelMap populateAppointmentDropDown(ModelMap model, Appointment appointment) {
+    private ModelMap populateAppointmentDropDown(ModelMap model, Appointment appointment, Client client) {
     	List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
-    	List <AvailableDog> availableDogList = availableDogService.findAllDogs();
+    	//List<AvailableDog> availableDogList = availableDogService.findAllDogs();
+    	Set <ClientDog> availableDogList = null;
+    	if(null != client && null != client.getDogSet()) {
+    		availableDogList = client.getDogSet();
+    	}
     	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
     	model.addAttribute(groomingOptionList);
     	model.addAttribute(availableDogList);
