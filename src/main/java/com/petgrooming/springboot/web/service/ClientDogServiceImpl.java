@@ -25,8 +25,16 @@ public class ClientDogServiceImpl implements ClientDogService{
 	}
 
 	@Override
-	public List<ClientDog> findAllDogsOfClient(Client client) {
+	public List<ClientDog> findAllDogsOfClient(int client) {
 		return clientDogDao.findAllDogsByClient(client);
 	}
+
+	@Override
+	public void updateDog(ClientDog dog) {
+		clientDogDao.update(dog);
+		
+	}
+	
+	
 
 }

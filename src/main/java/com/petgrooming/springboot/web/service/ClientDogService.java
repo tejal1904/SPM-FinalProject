@@ -9,6 +9,8 @@ public interface ClientDogService {
 	
 	public void saveDog(ClientDog dog);
 	
-	public List<ClientDog> findAllDogsOfClient(Client client);
+	public List<ClientDog> findAllDogsOfClient(int client);
+	
+	public void updateDog(ClientDog dog);
 
 }

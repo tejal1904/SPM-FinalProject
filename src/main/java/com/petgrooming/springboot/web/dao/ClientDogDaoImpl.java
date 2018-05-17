@@ -17,11 +17,17 @@ public class ClientDogDaoImpl extends AbstractDao<Integer, ClientDog> implements
 	}
 
 	@Override
-	public List<ClientDog> findAllDogsByClient(Client client) {
+	public List<ClientDog> findAllDogsByClient(int client) {
 		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("client", client));
+		criteria.add(Restrictions.eq("client.id", client));
 		List<ClientDog> result = criteria.list();
 		return result;
+	}
+
+	@Override
+	public void update(ClientDog clientdog) {
+		getSession().update(clientdog);
+		
 	}
 
 }

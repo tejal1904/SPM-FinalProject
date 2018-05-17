@@ -9,6 +9,8 @@ public interface ClientDogDao {
 	
 	public void save(ClientDog clientDog);
 	
-	public List<ClientDog> findAllDogsByClient(Client client);
+	public List<ClientDog> findAllDogsByClient(int client);
+	
+	public void update(ClientDog clientdog);
 
 }

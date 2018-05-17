@@ -107,8 +107,8 @@ public class AppController {
     	System.out.println("in method");
     	System.out.println("client: -> "+client.toString());
     	Client persistentClient = clientService.findClientById(client.getId());
-    	List<ClientDog> clientDogList = clientDogService.findAllDogsOfClient(persistentClient);
-    	List<Appointment> appointmentList = appointmentService.getAllAppointment(persistentClient);
+    	List<ClientDog> clientDogList = clientDogService.findAllDogsOfClient(client.getId());
+    	List<Appointment> appointmentList = appointmentService.getAllAppointment(client.getId());
     	Appointment appointment = new Appointment();
     	appointment.setClient(persistentClient);
     	appointment.setStatus(true);

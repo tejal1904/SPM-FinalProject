@@ -9,5 +9,7 @@ public interface AppointmentService {
 	
 	public boolean saveAppointment(Appointment appointment);
 	
-	public List<Appointment> getAllAppointment(Client client);
+	public List<Appointment> getAllAppointment(int client);
+	
+	public void updateAppointment(Appointment appointment);
 }

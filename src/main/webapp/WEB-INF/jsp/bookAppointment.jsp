@@ -20,6 +20,7 @@ pageEncoding="ISO-8859-1"%>
             <ul class="nav navbar-nav">
                 <li class="active navHead" data-val="clientInformation"><a href="#">Client Information</a></li>
                 <li class="navHead" data-val="bookAppointment"><a href="#">Book Appointments</a></li>
+                <li class="navHead" data-val="showAppointment"><a href="#">Show Appointments</a></li>
             </ul>
             <div class="pull-right">
                 <a class="navbar-brand logout" href="/app/">Log out</a>
@@ -124,6 +125,7 @@ pageEncoding="ISO-8859-1"%>
             <div class = "bookAppointmentClass">
                 <form:form method="POST" modelAttribute="appointment" action="/app/appointmentSave">
                     <form:input type="hidden" path="appointmentId" id="appointmentId"/>
+                   
                     <b>${timeslotList}</b>
 
                     <div class="control-group">
@@ -188,6 +190,30 @@ pageEncoding="ISO-8859-1"%>
             </div>
 
         </div>
+        
+        <div id = "showAppointment" class="navContent" style="display:none;">
+            <div class = "showAppointmentClass">
+            	<h2>My Appointments</h2>
+            	<table>
+			        <tr>
+			            <td>Grooming Option</td><td>Date</td><td>Time</td><td>Dog</td><td>Comments</td><td></td><td></td>
+			        </tr>
+			        <c:forEach items="${appointmentList}" var="appointment">
+			            <tr>
+			            <td>${appointment.groomingOption.groomingType}</td>
+			            <td>${appointment.appointmentDate}</td>
+			            <td>${appointment.timeslot}</td>
+			            <td>${appointment.availableDog.breed}</td>
+			            <td>${appointment.comment}</td>
+			            <td><a href="<c:url value='/edit-${appointment.appointmentId}-appointment' />">${appointment.appointmentId}</a></td>
+			            <td><a href="<c:url value='/delete-${appointment.appointmentId}-appointment' />">delete</a></td>
+			            </tr>
+			        </c:forEach>
+		    	</table>
+            
+            </div>
+        </div>
+        
     </div>
 </div>
 

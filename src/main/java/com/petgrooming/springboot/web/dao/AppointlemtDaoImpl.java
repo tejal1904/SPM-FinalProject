@@ -28,11 +28,17 @@ public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implem
 	}
 
 	@Override
-	public List<Appointment> getAll(Client client) {
+	public List<Appointment> getAll(int client) {
 		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("client", client));
+		criteria.add(Restrictions.eq("client.id", client));
 		List<Appointment> appointmentList = criteria.list();
 		return appointmentList;
+	}
+
+	@Override
+	public void update(Appointment appointment) {
+		getSession().update(appointment);
+		
 	}
 
 }

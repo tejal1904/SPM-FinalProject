@@ -22,7 +22,7 @@ public class ClientDog {
 	@Column(name = "CLIENT_DOG_ID")
     private int clientDogId;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="CLIENT_ID")
 	private Client client;
 	
