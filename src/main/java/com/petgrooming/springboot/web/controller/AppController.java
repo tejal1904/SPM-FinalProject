@@ -3,6 +3,7 @@ package com.petgrooming.springboot.web.controller;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -118,10 +119,10 @@ public class AppController {
     }
     
     @RequestMapping(value = "/appointmentSave", method = RequestMethod.POST)
-    public String appointmentSave(@RequestParam("clientId") int clientId, ModelMap model,Appointment appointment, BindingResult result)
+    public String appointmentSave(ModelMap model,Appointment appointment, BindingResult result)
     {
     	System.out.println("in save appointment");
-    	Client client = clientService.findClientById(clientId);
+    	Client client = clientService.findClientById(appointment.getClient().getId());
     	boolean check = isAfterToday(new DateTime(appointment.getAppointmentDate()));
     	if(!check) {
     		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be booked only after today.");
@@ -180,10 +181,11 @@ public class AppController {
     private ModelMap populateAppointmentDropDown(ModelMap model, Appointment appointment, Client client) {
     	List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
     	//List<AvailableDog> availableDogList = availableDogService.findAllDogs();
-    	Set <ClientDog> availableDogList = null;
+    	Set <ClientDog> DogList = null;
     	if(null != client && null != client.getDogSet()) {
-    		availableDogList = client.getDogSet();
+    		DogList = client.getDogSet();
     	}
+    	List<ClientDog> availableDogList = new ArrayList<ClientDog>(DogList);
     	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
     	model.addAttribute(groomingOptionList);
     	model.addAttribute(availableDogList);

@@ -125,7 +125,7 @@ pageEncoding="ISO-8859-1"%>
             <div class = "bookAppointmentClass">
                 <form:form method="POST" modelAttribute="appointment" action="/app/appointmentSave">
                     <form:input type="hidden" path="appointmentId" id="appointmentId"/>
-                   <form:input type="hidden" path="client.id" id="clientId"/>
+                
                     <b>${timeslotList}</b>
 
                     <div class="control-group">
