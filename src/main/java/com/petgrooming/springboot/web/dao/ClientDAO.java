@@ -11,5 +11,7 @@ public interface ClientDAO {
 	public Client getClientById(int id); 
 	
 	public void update(Client client);
+	
+	public Client getClientByEmail(Client client);
 
 }

@@ -98,6 +98,11 @@ public class AppController {
 			HttpServletResponse response, Client client, RedirectAttributes attributes) {
     	
     	if(!clientService.isNewClient(client)) {
+    		client = clientService.getClientByEmail(client);
+    		if(client.getEmail() == "tom@gmail.com") {
+    			List<Appointment> allAppoitments = appointmentService.getAllAppointment();
+    			//redirect
+    		}
     		attributes.addFlashAttribute(client);
     		return "redirect:book";
     	}else {
@@ -181,6 +186,7 @@ public class AppController {
     @RequestMapping(value = "/editAppointment", method = RequestMethod.GET)
     public String appointmentEdit(ModelMap model,@ModelAttribute Appointment appointment, BindingResult result, RedirectAttributes attributes)
     {
+    	
     	System.out.println("in edit appointment");
     	return null;
     }

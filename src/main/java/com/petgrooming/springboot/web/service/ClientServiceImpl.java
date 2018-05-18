@@ -32,4 +32,9 @@ public class ClientServiceImpl implements ClientService {
 	public void updateClient(Client client) {
 		clientDAO.update(client);
 	}
+
+	@Override
+	public Client getClientByEmail(Client client) {
+		return clientDAO.getClientByEmail(client);
+	}
 }

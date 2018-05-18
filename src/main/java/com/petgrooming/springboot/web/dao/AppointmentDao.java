@@ -12,5 +12,7 @@ public interface AppointmentDao {
 	public List<Appointment> getAll(int client);
 	
 	public void update(Appointment appointment);
+	
+	public List<Appointment> getAll();
 
 }

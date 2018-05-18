@@ -11,5 +11,7 @@ public interface ClientService {
 	public Client findClientById(int id);
 	
 	public void updateClient(Client client);
+	
+	public Client getClientByEmail(Client client);
 
 }

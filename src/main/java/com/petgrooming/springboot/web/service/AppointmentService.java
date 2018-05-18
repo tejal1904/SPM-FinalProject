@@ -11,5 +11,7 @@ public interface AppointmentService {
 	
 	public List<Appointment> getAllAppointment(int client);
 	
+	public List<Appointment> getAllAppointment();
+	
 	public void updateAppointment(Appointment appointment);
 }
