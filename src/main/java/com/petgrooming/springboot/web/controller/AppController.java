@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -94,9 +95,10 @@ public class AppController {
      */
     @RequestMapping(params = { "login" }, method = RequestMethod.POST)
     public String loginClient(HttpServletRequest request,
-			HttpServletResponse response, Client client) {
+			HttpServletResponse response, Client client, RedirectAttributes attributes) {
     	
     	if(!clientService.isNewClient(client)) {
+    		attributes.addFlashAttribute(client);
     		return "redirect:book";
     	}else {
     		return "registration";
@@ -108,20 +110,18 @@ public class AppController {
     	System.out.println("in method");
     	System.out.println("client: -> "+client.toString());
     	client = clientService.findClientById(client.getId());
-    	//List<ClientDog> clientDogList = clientDogService.findAllDogsOfClient(client.getId());
     	List<Appointment> appointmentList = appointmentService.getAllAppointment(client.getId());
     	Appointment appointment = new Appointment();
     	appointment.setStatus(true);
     	appointment.setClient(client);
     	model.addAttribute(client);
-    	//model.addAttribute(clientDogList);
     	model.addAttribute(appointmentList);
     	model = populateAppointmentDropDown(model, appointment, client);
     	return "bookAppointment";
     }
     
     @RequestMapping(value = "/appointmentSave", method = RequestMethod.POST)
-    public String appointmentSave(@RequestParam("clientId") String clientId, ModelMap model,Appointment appointment, BindingResult result)
+    public String appointmentSave(@RequestParam("clientId") String clientId, ModelMap model,Appointment appointment, BindingResult result, RedirectAttributes attributes)
     {
     	System.out.println("in save appointment");
     	Client client = clientService.findClientById(Integer.parseInt(clientId));
@@ -140,7 +140,8 @@ public class AppController {
             model = populateAppointmentDropDown(model, appointment, client);
     		return "bookAppointment";
     	}else {
-    		return "home"; 
+    		attributes.addFlashAttribute(client);
+    		return "redirect:book";
     	}
     	  
     }
@@ -176,6 +177,14 @@ public class AppController {
     	System.out.println("dogdata: "+ dogData);
 		return "redirect:book";
     }
+    
+    @RequestMapping(value = "/editAppointment", method = RequestMethod.GET)
+    public String appointmentEdit(ModelMap model,@ModelAttribute Appointment appointment, BindingResult result, RedirectAttributes attributes)
+    {
+    	System.out.println("in edit appointment");
+    	return null;
+    }
+    
    
     
     private static boolean isAfterToday(DateTime date) {
