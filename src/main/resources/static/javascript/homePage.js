@@ -64,6 +64,7 @@ $(function(){
     }).change();
 
     $('#client-info-form').on('submit',function(event){
+    	event.preventDefault();
     	var dogs = parseInt($(this).find('#noOfDogs').val());
     	var dogData = [];
     	for(i=0;i < dogs; i++){
@@ -79,7 +80,17 @@ $(function(){
             url: '/app/dogDetails',
             contentType: 'application/json',
             data: JSON.stringify(dogData),
-            dataType : 'json'
-    	});    
+            dataType : 'json',
+            success: function(data){   
+            	console.log("ajax data success : "+data);
+                $(this).submit();
+            },
+            error: function(data){   
+            	console.log("ajax data error: "+data);
+                $('#client-info-form').attr('action',"/app/updateClient").off('submit').submit();
+            }
+    	});
+    	return false;
+    	
     });
 });

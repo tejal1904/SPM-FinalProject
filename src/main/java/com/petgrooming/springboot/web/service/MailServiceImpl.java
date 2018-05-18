@@ -49,7 +49,6 @@ public class MailServiceImpl implements MailService{
 	        //compose message    
 	        try {   
 	        	    
-	        	 
 	             //message.addRecipient(Message.RecipientType.TO,new InternetAddress("tjadhav@student.unimelb.edu.au"));      
 	             //send message  
 	             //Transport.send(message); 

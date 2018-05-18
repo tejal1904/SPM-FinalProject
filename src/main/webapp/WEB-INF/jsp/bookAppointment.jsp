@@ -32,6 +32,7 @@ pageEncoding="ISO-8859-1"%>
             <div class="clientDetails">
                 <form:form id="client-info-form" method="POST" modelAttribute="client" action = "/app/updateClient">
                     <form:input type="hidden" path="id" id="id"/>
+                    <input type="hidden" name="clientId" value = "${client.id}"/>
                     <div class="col-sm-6">
                         <div class="control-group">
                             <label for="firstName" class="col-sm-4 control-label">Full Name</label>
@@ -163,7 +164,7 @@ pageEncoding="ISO-8859-1"%>
                         <div class="col-sm-8 controls">
                             <form:select path="availableDog.clientDogId"  class="form-control">
                                 <%-- <form:option value="NONE" label="--- Select ---"/> --%>
-                                <form:options items="${availableDogList}" itemValue = "clientDogId" itemLabel = "breed"/>
+                               <form:options items="${client.dogSet}" itemValue = "clientDogId" itemLabel = "breed"/>
                             </form:select>
                             <form:errors path="availableDog" cssClass="error"/>
                         </div>
@@ -228,7 +229,7 @@ pageEncoding="ISO-8859-1"%>
                             </td>
                             <td>
                                 <form:select path="appointment.availableDog.clientDogId"  class="form-control">
-                                    <form:options items="${availableDogList}" itemValue = "clientDogId" itemLabel = "breed"/>
+                                   <form:options items="${client.dogSet}" itemValue = "clientDogId" itemLabel = "breed"/>
                                 </form:select>
                                 <form:errors path="availableDog" cssClass="error"/>
 

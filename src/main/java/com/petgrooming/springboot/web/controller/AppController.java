@@ -1,16 +1,11 @@
 package com.petgrooming.springboot.web.controller;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,10 +36,7 @@ import com.petgrooming.springboot.web.service.AppointmentService;
 import com.petgrooming.springboot.web.service.ClientDogService;
 import com.petgrooming.springboot.web.service.ClientService;
 import com.petgrooming.springboot.web.service.GroomingOptionService;
-import com.petgrooming.springboot.web.service.TimeSlotService;
-
-import javax.mail.*;    
-import javax.mail.internet.*; 
+import com.petgrooming.springboot.web.service.TimeSlotService; 
 
 @Controller
 @RequestMapping("/app")
@@ -167,7 +159,7 @@ public class AppController {
     }
     
     
-    @RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
     public String dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result, RedirectAttributes attributes) {
     	System.out.println("---------->in dog details ");  
     	HashSet<ClientDog> dogSet = new HashSet<>();
@@ -186,7 +178,35 @@ public class AppController {
     	attributes.addFlashAttribute(client);
     	System.out.println("dogdata: "+ dogData);
 		return "redirect:book";
+    }*/
+    
+    @RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
+    public void dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) {
+    	System.out.println("---------->in dog details ");  
+    	HashSet<ClientDog> dogSet = new HashSet<>();
+    	Client client = clientService.findClientById(dogData.get(0).getClientId());
+    	for(ClientDogPojo pojo: dogData) {
+    		ClientDog clientDog = new ClientDog();
+    		clientDog.setClient(clientService.findClientById(pojo.getClientId()));
+    		clientDog.setName(pojo.getName());
+    		clientDog.setBreed(pojo.getBreed());
+    		clientDog.setDateOfBirth(pojo.getDateOfBirth());
+    		clientDog.setClient(client);
+    		dogSet.add(clientDog);
+    	}
+    	client.setDogSet(dogSet);
+    	clientService.updateClient(client);
+    	attributes.addFlashAttribute(client);
+    	System.out.println("dogdata: "+ dogData);
+		//return "redirect:book";
+    	 try {
+			response.getWriter().write("hello");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
+    
     
     @RequestMapping(value = "/editAppointment", method = RequestMethod.GET)
     public String appointmentEdit(ModelMap model,@ModelAttribute Appointment appointment, BindingResult result, RedirectAttributes attributes)
