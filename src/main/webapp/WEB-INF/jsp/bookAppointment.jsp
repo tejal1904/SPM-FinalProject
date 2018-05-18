@@ -222,7 +222,6 @@ pageEncoding="ISO-8859-1"%>
                                 <form:errors path="timeslot" cssClass="error"/>
 
                             </td>
-<<<<<<< HEAD
                             <td>
                                 <form:select path="appointment.availableDog.clientDogId"  class="form-control">
                                    <form:options items="${client.dogSet}" itemValue = "clientDogId" itemLabel = "breed"/>
@@ -232,10 +231,8 @@ pageEncoding="ISO-8859-1"%>
                             </td>
                             <td> <form:input path="appointment.comment" />
                                 <form:errors path="comment" cssClass="error"/>
-=======
                             <td>${appointment.availableDog.clientDogId}</td>
                             <td>${appointment.comment}</td>
->>>>>>> branch 'master' of https://github.com/tejal1904/SPM-FinalProject
                             </td>
                             <td><a href = "<c:url value='/app/editAppointment' />">Edit</a></td>
                             <td><a href = "<c:url value='/app/deleteAppointment' />">Delete</a></td>
