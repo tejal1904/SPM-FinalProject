@@ -200,7 +200,7 @@ pageEncoding="ISO-8859-1"%>
 			            <td>Grooming Option</td><td>Date</td><td>Time</td><td>Dog</td><td>Comments</td><td></td><td></td>
 			        </tr>
 			        <c:forEach items="${appointmentList}" var="appointment">
-			        	<input type="hidden" name="appointment" value = "${appointment}"/> --%>
+			        	<input type="hidden" name="appointment" value = "${appointment}"/>
 			            <tr>
 			        
 			            <td>

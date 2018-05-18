@@ -1,5 +1,6 @@
 package com.petgrooming.springboot.web.dao;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -40,5 +41,15 @@ public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implem
 		getSession().update(appointment);
 		
 	}
+
+	@Override
+	public List<Appointment> getAll() {
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.ge("appointmentDate", date));
+		List<Appointment> appointmentList = criteria.list();
+		return appointmentList;
+	}
+
 
 }
