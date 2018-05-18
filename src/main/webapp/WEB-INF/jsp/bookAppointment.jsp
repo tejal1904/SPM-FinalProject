@@ -232,7 +232,7 @@ pageEncoding="ISO-8859-1"%>
                             <form:errors path="comment" cssClass="error"/>
                         </td>
                         <td><a href = "<c:url value='/app/editAppointment' />">Edit</a></td>
-                       <td><a href = "<c:url value='/app/deleteAppointment' />">Edit</a></td>
+                       <td><a href = "<c:url value='/app/deleteAppointment' />">Delete</a></td>
 			            </tr>
 			        </c:forEach>
 		    	</table>
