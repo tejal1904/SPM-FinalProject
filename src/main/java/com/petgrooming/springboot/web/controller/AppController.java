@@ -95,13 +95,14 @@ public class AppController {
      */
     @RequestMapping(params = { "login" }, method = RequestMethod.POST)
     public String loginClient(HttpServletRequest request,
-			HttpServletResponse response, Client client, RedirectAttributes attributes) {
+			HttpServletResponse response, Client client, RedirectAttributes attributes, ModelMap model) {
     	
     	if(!clientService.isNewClient(client)) {
     		client = clientService.getClientByEmail(client);
     		if(client.getEmail() == "tom@gmail.com") {
     			List<Appointment> allAppoitments = appointmentService.getAllAppointment();
-    			//redirect
+    			model.addAttribute(allAppoitments);
+    			return "adminPage";
     		}
     		attributes.addFlashAttribute(client);
     		return "redirect:book";
