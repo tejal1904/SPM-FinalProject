@@ -168,4 +168,7 @@ input:-webkit-autofill {
 #updateClient {
     margin-top: 20px;
 }
-	
+.showAppointmentClass select {
+    background-color: black;
+    color: white;
+}
