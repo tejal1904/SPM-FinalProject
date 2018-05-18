@@ -211,7 +211,7 @@ pageEncoding="ISO-8859-1"%>
                         <tr>
                             <td>${appointment.groomingOption.groomingType}</td>
                             <td>
-                                <form:input type="date" path="appointment.appointmentDate" />
+                                <form:input type="date" path="appointment.appointmentDate" name="appointment.appointmentDate" value="${appointment.appointmentDate}"/>
                                 <form:errors path="appointmentDate" cssClass="error"/>
                             </td>
                             <td>
@@ -221,11 +221,11 @@ pageEncoding="ISO-8859-1"%>
                                 <form:errors path="timeslot" cssClass="error"/>
 
                             </td>
-                            <td>${appointment.availableDog.clientDogId}</td>
+                            <td>${appointment.availableDog.breed}</td>
                             <td>${appointment.comment}</td>
                             </td>
-                            <td><a href = "<c:url value='/app/editAppointment' />">Edit</a></td>
-                            <td><a href = "<c:url value='/app/deleteAppointment' />">Delete</a></td>
+                            <td><a href = "<c:url value='/app/editAppointment' />">Reschedule</a></td>
+                            <td><a href = "<c:url value='/app/deleteAppointment' />">Cancel appointment</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
