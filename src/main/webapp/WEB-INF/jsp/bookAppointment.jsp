@@ -32,6 +32,7 @@ pageEncoding="ISO-8859-1"%>
             <div class="clientDetails">
                 <form:form id="client-info-form" method="POST" modelAttribute="client" action = "/app/updateClient">
                     <form:input type="hidden" path="id" id="id"/>
+                    <input type="hidden" name="clientId" value = "${client.id}"/>
                     <div class="col-sm-6">
                         <div class="control-group">
                             <label for="firstName" class="col-sm-4 control-label">Full Name</label>
@@ -163,7 +164,7 @@ pageEncoding="ISO-8859-1"%>
                         <div class="col-sm-8 controls">
                             <form:select path="availableDog.clientDogId"  class="form-control">
                                 <%-- <form:option value="NONE" label="--- Select ---"/> --%>
-                                <form:options items="${availableDogList}" itemValue = "clientDogId" itemLabel = "breed"/>
+                               <form:options items="${client.dogSet}" itemValue = "clientDogId" itemLabel = "breed"/>
                             </form:select>
                             <form:errors path="availableDog" cssClass="error"/>
                         </div>
@@ -214,16 +215,23 @@ pageEncoding="ISO-8859-1"%>
                                 <form:input type="date" path="appointment.appointmentDate" name="appointment.appointmentDate" value="${appointment.appointmentDate}"/>
                                 <form:errors path="appointmentDate" cssClass="error"/>
                             </td>
-                            <td>
-                                <form:select path="appointment.timeslot.timeSlotId" class="form-control">
-                                    <form:options items="${timeSlotList}" itemValue = "timeSlotId" itemLabel = "timeStart" />
+                            <td>                          
+                            	<form:select path="appointment.timeslot.timeSlotId" id="appointment.timeslot.timeSlotId" class="form-control">
+                                    <c:forEach items="${timeSlotList}" var="timeSlotList">
+                            		<c:choose>
+                                	<c:when test="${timeSlotList.timeSlotId eq appointment.timeslot.timeSlotId}">
+                                    	<option value= "${timeSlotList.timeSlotId}" selected="true">${timeSlotList.timeStart}</option>
+                                	</c:when>
+                                	<c:otherwise>
+                                    	<option value="${timeSlotList.timeSlotId}" >${timeSlotList.timeStart}</option>
+                                	</c:otherwise>
+                            		</c:choose>
+                            		</c:forEach>                                    
                                 </form:select>
                                 <form:errors path="timeslot" cssClass="error"/>
-
                             </td>
                             <td>${appointment.availableDog.breed}</td>
                             <td>${appointment.comment}</td>
-                            </td>
                             <td><a href = "<c:url value='/app/editAppointment' />">Reschedule</a></td>
                             <td><a href = "<c:url value='/app/deleteAppointment' />">Cancel appointment</a></td>
                         </tr>

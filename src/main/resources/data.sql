@@ -4,7 +4,7 @@ insert into GROOMINGOPTION(Grooming_ID,cost,GroomingType) values(3,100,'Deluxe G
 
 insert into client values(1, 'melbourne', 'tom.petgroomer@gmail.com', '12345678','332334556','Tom Hanks','tom@123','343434564');
 
---insert into client values(2, 'melbourne', 'tjadhav@student.unimelb.edu.au', '12345678','332334556','Tejal JAdhav','tejal','343434564');
+insert into client values(2, 'melbourne', 'tjadhav@student.unimelb.edu.au', '12345678','332334556','Tejal JAdhav','tejal','343434564');
 --insert into client values(3, 'melbourne', 'ssekar@student.unimelb.edu.au', '12345678','332334556','Sindhu Sekar','tejal','343434564');
 --insert into client values(4, 'melbourne', 'aambasht@student.unimelb.edu.au', '12345678','332334556','Antariksh Ambasht','tejal','343434564');
 
