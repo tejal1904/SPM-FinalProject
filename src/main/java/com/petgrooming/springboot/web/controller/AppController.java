@@ -41,7 +41,6 @@ import com.petgrooming.springboot.web.service.AppointmentService;
 import com.petgrooming.springboot.web.service.ClientDogService;
 import com.petgrooming.springboot.web.service.ClientService;
 import com.petgrooming.springboot.web.service.GroomingOptionService;
-import com.petgrooming.springboot.web.service.MailService;
 import com.petgrooming.springboot.web.service.TimeSlotService;
 
 import javax.mail.*;    
@@ -68,9 +67,6 @@ public class AppController {
      
     @Autowired
     MessageSource messageSource;
-    
-    @Autowired
-    MailService mailService;
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView registration(ModelMap model) {
@@ -214,6 +210,7 @@ public class AppController {
     		DogList = client.getDogSet();
     	}
     	List<ClientDog> availableDogList = new ArrayList<ClientDog>(DogList);
+    	System.out.println(availableDogList);
     	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
     	model.addAttribute(groomingOptionList);
     	model.addAttribute(availableDogList);
