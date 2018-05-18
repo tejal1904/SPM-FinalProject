@@ -106,8 +106,8 @@ public class AppController {
 			HttpServletResponse response, Client client, RedirectAttributes attributes, ModelMap model) {
     	client = clientService.getClientByEmail(client);
     	if(client.getEmail().equals("tom.petgroomer@gmail.com") && client.getPassword().equals("tom@123")) {
-			List<Appointment> allAppoitments = appointmentService.getAllAppointment();
-			model.addAttribute(allAppoitments);
+			List<Appointment> allAppointments = appointmentService.getAllAppointment();
+			model.addAttribute(allAppointments);
 			return "adminPage";
 		}
     	if(!clientService.isNewClient(client)) {
