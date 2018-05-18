@@ -27,7 +27,6 @@ pageEncoding="ISO-8859-1"%>
             </div>
         </div>
     </nav>
-
     <div class="container">
         <div id = "clientInformation" class="navContent">
             <div class="clientDetails">
