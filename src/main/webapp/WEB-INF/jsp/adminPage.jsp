@@ -33,6 +33,10 @@ pageEncoding="ISO-8859-1"%>
                 <table class="table table-dark">
                     <thead>
                     <tr>
+	                    <th scope="col">Name</th>
+	                    <th scope="col">Address</th>
+	                    <th scope="col">Mobile Number</th>
+	                    <th scope="col">E Mail</th>
                         <th scope="col">Grooming Option</th>
                         <th scope="col">Date</th>
                         <th scope="col">Time</th>
@@ -41,36 +45,18 @@ pageEncoding="ISO-8859-1"%>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${allAppointments}" var="appointment">
+                    <c:forEach items="${appointmentList}" var="appointment">
                         <input type="hidden" name="appointment" value = "${appointment}"/>
                         <tr>
-                            <td>
-                                <form:select path="appointment.groomingOption.groomingType" class="form-control">
-                                    <form:options items="${groomingOptionList}" itemValue = "groomingId" itemLabel = "groomingType"/>
-                                </form:select>
-                            </td>
-
-                            <td>
-                                <form:input type="date" path="appointment.appointmentDate" />
-                                <form:errors path="appointmentDate" cssClass="error"/>
-                            </td>
-                            <td>
-                                <form:select path="appointment.timeslot.timeSlotId" class="form-control">
-                                    <form:options items="${timeSlotList}" itemValue = "timeSlotId" itemLabel = "timeStart" />
-                                </form:select>
-                                <form:errors path="timeslot" cssClass="error"/>
-
-                            </td>
-                            <td>
-                                <form:select path="appointment.availableDog.clientDogId"  class="form-control">
-                                    <form:options items="${availableDogList}" itemValue = "clientDogId" itemLabel = "breed"/>
-                                </form:select>
-                                <form:errors path="availableDog" cssClass="error"/>
-
-                            </td>
-                            <td> <form:input path="appointment.comment" />
-                                <form:errors path="comment" cssClass="error"/>
-                            </td>
+                        <td>${appointment.client.name}</td>
+	                        <td>${appointment.client.address}</td>
+	                        <td>${appointment.client.mobile}</td>
+	                        <td>${appointment.client.email}</td>
+                        	<td>${appointment.groomingOption.groomingType}</td>
+                        	<td>${appointment.appointmentDate}</td>
+                        	<td>${appointment.timeslot.timeStart}</td>
+                        	<td>${appointment.availableDog.breed}</td>
+                        	<td>${appointment.comment}</td>                 
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -9,7 +9,7 @@ pageEncoding="ISO-8859-1"%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
-</head>
+</head> 
 <body>
 <div class="mainContainer">
     <nav class="navbar navbar-inverse">
@@ -210,12 +210,7 @@ pageEncoding="ISO-8859-1"%>
                     <c:forEach items="${appointmentList}" var="appointment">
                         <input type="hidden" name="appointment" value = "${appointment}"/>
                         <tr>
-                            <td>
-                                <form:select path="appointment.groomingOption.groomingType" class="form-control">
-                                    <form:options items="${groomingOptionList}" itemValue = "groomingId" itemLabel = "groomingType"/>
-                                </form:select>
-                            </td>
-
+                            <td>${appointment.groomingOption.groomingType}</td>
                             <td>
                                 <form:input type="date" path="appointment.appointmentDate" />
                                 <form:errors path="appointmentDate" cssClass="error"/>
@@ -227,6 +222,7 @@ pageEncoding="ISO-8859-1"%>
                                 <form:errors path="timeslot" cssClass="error"/>
 
                             </td>
+<<<<<<< HEAD
                             <td>
                                 <form:select path="appointment.availableDog.clientDogId"  class="form-control">
                                    <form:options items="${client.dogSet}" itemValue = "clientDogId" itemLabel = "breed"/>
@@ -236,6 +232,10 @@ pageEncoding="ISO-8859-1"%>
                             </td>
                             <td> <form:input path="appointment.comment" />
                                 <form:errors path="comment" cssClass="error"/>
+=======
+                            <td>${appointment.availableDog.clientDogId}</td>
+                            <td>${appointment.comment}</td>
+>>>>>>> branch 'master' of https://github.com/tejal1904/SPM-FinalProject
                             </td>
                             <td><a href = "<c:url value='/app/editAppointment' />">Edit</a></td>
                             <td><a href = "<c:url value='/app/deleteAppointment' />">Delete</a></td>

@@ -172,3 +172,7 @@ input:-webkit-autofill {
     background-color: black;
     color: white;
 }
+
+.table {
+	font-size: 12px;
+}
