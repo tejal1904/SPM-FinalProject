@@ -38,6 +38,11 @@ public class AppointmentServiceImpl implements AppointmentService{
 		appointmentDao.update(appointment);
 		
 	}
+
+	@Override
+	public List<Appointment> getAppointmentForMail() {
+		return appointmentDao.getAppointmentForMail();
+	}
 	
 	
 	

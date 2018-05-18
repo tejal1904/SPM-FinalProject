@@ -41,7 +41,11 @@ import com.petgrooming.springboot.web.service.AppointmentService;
 import com.petgrooming.springboot.web.service.ClientDogService;
 import com.petgrooming.springboot.web.service.ClientService;
 import com.petgrooming.springboot.web.service.GroomingOptionService;
+import com.petgrooming.springboot.web.service.MailService;
 import com.petgrooming.springboot.web.service.TimeSlotService;
+
+import javax.mail.*;    
+import javax.mail.internet.*; 
 
 @Controller
 @RequestMapping("/app")
@@ -65,8 +69,12 @@ public class AppController {
     @Autowired
     MessageSource messageSource;
     
+    @Autowired
+    MailService mailService;
+    
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView registration(ModelMap model) {
+    	//mailService.sendMail();
     	Client client = new Client();
     	model.addAttribute(client);
         return new ModelAndView("registration");
@@ -96,14 +104,14 @@ public class AppController {
     @RequestMapping(params = { "login" }, method = RequestMethod.POST)
     public String loginClient(HttpServletRequest request,
 			HttpServletResponse response, Client client, RedirectAttributes attributes, ModelMap model) {
-    	
+    	client = clientService.getClientByEmail(client);
+    	if(client.getEmail().equals("tom.petgroomer@gmail.com") && client.getPassword().equals("tom@123")) {
+			List<Appointment> allAppoitments = appointmentService.getAllAppointment();
+			model.addAttribute(allAppoitments);
+			return "adminPage";
+		}
     	if(!clientService.isNewClient(client)) {
-    		client = clientService.getClientByEmail(client);
-    		if(client.getEmail() == "tom@gmail.com") {
-    			List<Appointment> allAppoitments = appointmentService.getAllAppointment();
-    			model.addAttribute(allAppoitments);
-    			return "adminPage";
-    		}
+    		
     		attributes.addFlashAttribute(client);
     		return "redirect:book";
     	}else {

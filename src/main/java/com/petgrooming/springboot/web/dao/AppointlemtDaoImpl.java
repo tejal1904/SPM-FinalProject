@@ -51,5 +51,14 @@ public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implem
 		return appointmentList;
 	}
 
+	@Override
+	public List<Appointment> getAppointmentForMail() {
+		java.sql.Date now = new java.sql.Date( new java.util.Date().getTime() );
+		java.sql.Date tomorrow= new java.sql.Date( now.getTime() + 24*60*60*1000);
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.eq("appointmentDate", tomorrow));
+		List<Appointment> appointmentList = criteria.list();
+		return appointmentList;	
+		}
 
 }

@@ -14,5 +14,7 @@ public interface AppointmentDao {
 	public void update(Appointment appointment);
 	
 	public List<Appointment> getAll();
+	
+	public List<Appointment> getAppointmentForMail();
 
 }

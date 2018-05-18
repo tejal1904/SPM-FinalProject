@@ -2,6 +2,8 @@ insert into GROOMINGOPTION(Grooming_ID,cost,GroomingType) values(1,50.0,'Wash On
 insert into GROOMINGOPTION(Grooming_ID,cost,GroomingType) values(2,75,'Wash and Nail Clipping');
 insert into GROOMINGOPTION(Grooming_ID,cost,GroomingType) values(3,100,'Deluxe Grooming');
 
+insert into client values(1, 'melbourne', 'tom.petgroomer@gmail.com', '12345678','332334556','Tom Hanks','tom@123','343434564');
+
 insert into TIMESLOT values(1,9.00);
 insert into TIMESLOT values(2,10.30);
 insert into TIMESLOT values(3,12.00);
