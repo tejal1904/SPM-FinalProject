@@ -7,5 +7,7 @@ import com.petgrooming.springboot.web.model.TimeSlot;
 public interface TimeSlotService {
 	
 	public List<TimeSlot> findAllTimeSlots();
+	
+	public TimeSlot getById(int id);
 
 }

@@ -17,4 +17,10 @@ public class TimeSlotDaoImpl extends AbstractDao<Integer, TimeSlot> implements T
 		return timeList;
 	}
 
+	@Override
+	public TimeSlot getById(int id) {
+		return getByKey(id);
+		
+	}
+
 }

@@ -1,9 +1,11 @@
 package com.petgrooming.springboot.web.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.petgrooming.springboot.web.model.Appointment;
 import com.petgrooming.springboot.web.model.Client;
+import com.petgrooming.springboot.web.model.TimeSlot;
 
 public interface AppointmentService {
 	
@@ -13,7 +15,9 @@ public interface AppointmentService {
 	
 	public List<Appointment> getAllAppointment();
 	
-	public void updateAppointment(Appointment appointment);
+	public boolean updateAppointment(int appointmentId, Date aptDate, TimeSlot timeSlot);
 	
 	public List<Appointment> getAppointmentForMail();
+	
+	public Appointment getAppointmentById(int id);
 }

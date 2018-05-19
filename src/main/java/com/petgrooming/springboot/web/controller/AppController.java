@@ -1,7 +1,10 @@
 package com.petgrooming.springboot.web.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -129,17 +132,19 @@ public class AppController {
     	Client client = clientService.findClientById(Integer.parseInt(clientId));
     	boolean check = isAfterToday(new DateTime(appointment.getAppointmentDate()));
     	if(!check) {
+    		model = populateAppointmentDropDown(model, appointment, client);
     		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be booked only after today.");
             result.addError(timeslotError);
-            model = populateAppointmentDropDown(model, appointment, client);
+            model.addAttribute(client);
     		return "bookAppointment";
     	}
     	appointment.setClient(client);
     	boolean isValidAppointment = appointmentService.saveAppointment(appointment);
     	if(!isValidAppointment) {
+    		 model = populateAppointmentDropDown(model, appointment, client);
     		FieldError timeslotError =new FieldError("appointment","timeslot","This time slot is already taken. Please select another time slot");
             result.addError(timeslotError);
-            model = populateAppointmentDropDown(model, appointment, client);
+            model.addAttribute(client);
     		return "bookAppointment";
     	}else {
     		attributes.addFlashAttribute(client);
@@ -199,41 +204,73 @@ public class AppController {
     	attributes.addFlashAttribute(client);
     	System.out.println("dogdata: "+ dogData);
 		//return "redirect:book";
-    	 try {
-			response.getWriter().write("hello");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
     
     
-    @RequestMapping(value = "/editAppointment", method = RequestMethod.GET)
-    public String appointmentEdit(ModelMap model,@ModelAttribute Appointment appointment, BindingResult result, RedirectAttributes attributes)
+    @RequestMapping(value = "/editAppointment")
+    public String appointmentEdit(ModelMap model, @RequestParam("appointmentId") int aptid,@RequestParam("clientId") int clientid, RedirectAttributes attributes ) throws Exception
     {
-    	
     	System.out.println("in edit appointment");
-    	return null;
+    	Appointment appointment = appointmentService.getAppointmentById(aptid);
+    	Client client = clientService.findClientById(clientid);
+    	model = populateAppointmentDropDown(model, appointment, client);
+    	model.addAttribute(appointment);
+    	
+    	return "editAppointment";
+    	/*SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+    	java.util.Date utildate = sdf1.parse(date);
+    	java.sql.Date appointmentDate = new java.sql.Date(utildate.getTime()); 
+    	Client client = clientService.findClientById(clientid);
+    	TimeSlot timeSlot = timeSlotService.getById(Integer.parseInt(time));
+    	boolean check = appointmentService.updateAppointment(aptid, appointmentDate, timeSlot);
+    	if(check) {
+    		Appointment appointment = appointmentService.getAppointmentById(aptid);
+    		model = populateAppointmentDropDown(model, appointment, client);
+            model.addAttribute(client);
+            model.addAttribute(appointment);
+            attributes.addFlashAttribute(client);
+    		return "redirect:book";
+    	}else {
+    		Appointment appointment = appointmentService.getAppointmentById(aptid);
+    		model = populateAppointmentDropDown(model, appointment, client);
+            model.addAttribute(client);
+            model.addAttribute(appointment);
+            return "bookAppointment";
+    	}*/
+    	
     }
     
-   
-    
+    @RequestMapping(value = "/appointmentUpdate", method = RequestMethod.POST)
+    public String appointmentUpdate(ModelMap model,Appointment appointment, BindingResult result, RedirectAttributes attributes)
+    {
+    	boolean check = appointmentService.updateAppointment(appointment.getAppointmentId(), appointment.getAppointmentDate(), appointment.getTimeslot());
+    	if(check) {
+    		appointment = appointmentService.getAppointmentById(appointment.getAppointmentId());
+    		FieldError timeslotError =new FieldError("appointment","timeslot","Appointment Reschduled");
+            result.addError(timeslotError);
+    		model = populateAppointmentDropDown(model, appointment, appointment.getClient());
+            model.addAttribute(appointment.getClient());
+            model.addAttribute(appointment);
+            attributes.addFlashAttribute(appointment.getClient());
+    		return "redirect:book";
+    	}else {
+    		FieldError timeslotError =new FieldError("appointment","timeslot","This date and time slot is already taken. Please select another time slot");
+            result.addError(timeslotError);
+    		model = populateAppointmentDropDown(model, appointment, appointment.getClient());
+            model.addAttribute(appointment.getClient());
+            model.addAttribute(appointment);
+            return "editAppointment";
+    	}
+    }
+
     private static boolean isAfterToday(DateTime date) {
         return DateTimeComparator.getDateOnlyInstance().compare(date, DateTime.now()) > 0;
     }
 
     private ModelMap populateAppointmentDropDown(ModelMap model, Appointment appointment, Client client) {
     	List<GroomingOption> groomingOptionList = groomingOptionService.getGroomingOptions();
-    	//List<AvailableDog> availableDogList = availableDogService.findAllDogs();
-    	Set <ClientDog> DogList = null;
-    	if(null != client && null != client.getDogSet()) {
-    		DogList = client.getDogSet();
-    	}
-    	List<ClientDog> availableDogList = new ArrayList<ClientDog>(DogList);
-    	System.out.println(availableDogList);
     	List<TimeSlot> timeSlotList = timeSlotService.findAllTimeSlots();
     	model.addAttribute(groomingOptionList);
-    	model.addAttribute(availableDogList);
     	model.addAttribute(timeSlotList);
     	model.addAttribute(appointment);
     	return model;

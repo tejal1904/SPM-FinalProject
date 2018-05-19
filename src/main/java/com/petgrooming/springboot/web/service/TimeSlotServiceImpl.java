@@ -22,4 +22,9 @@ public class TimeSlotServiceImpl implements TimeSlotService{
 		return timeSlotDao.getAllTimeSlots();
 	}
 
+	@Override
+	public TimeSlot getById(int id) {
+		return timeSlotDao.getById(id);
+	}
+
 }

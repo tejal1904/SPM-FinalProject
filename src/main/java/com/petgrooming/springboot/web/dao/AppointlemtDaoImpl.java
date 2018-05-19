@@ -1,5 +1,6 @@
 package com.petgrooming.springboot.web.dao;
 
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.petgrooming.springboot.web.model.Appointment;
 import com.petgrooming.springboot.web.model.Client;
+import com.petgrooming.springboot.web.model.TimeSlot;
 
 @Repository("appointmentDao")
 public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implements AppointmentDao{
@@ -37,8 +39,20 @@ public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implem
 	}
 
 	@Override
-	public void update(Appointment appointment) {
-		getSession().update(appointment);
+	public boolean update(int appointmentId, Date aptDate, TimeSlot timeSlot) {
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.eq("timeslot", timeSlot));
+		criteria.add(Restrictions.eq("appointmentDate", aptDate));
+		criteria.add(Restrictions.ne("appointmentId", appointmentId));
+		List<Appointment> appointmentList = criteria.list();
+		if(appointmentList.isEmpty() && appointmentList.size() == 0) {
+			Appointment appointment = getByKey(appointmentId);
+			appointment.setAppointmentDate(aptDate);
+			appointment.setTimeslot(timeSlot);
+			getSession().update(appointment);
+			return true;
+		}
+		return false;
 		
 	}
 
@@ -60,5 +74,9 @@ public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implem
 		List<Appointment> appointmentList = criteria.list();
 		return appointmentList;	
 		}
+	
+	public Appointment getAppointmentById(int id) {
+		return getByKey(id);
+	}
 
 }

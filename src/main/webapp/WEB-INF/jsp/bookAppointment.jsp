@@ -208,32 +208,21 @@ pageEncoding="ISO-8859-1"%>
                     </thead>
                     <tbody>
                     <c:forEach items="${appointmentList}" var="appointment">
-                        <input type="hidden" name="appointment" value = "${appointment}"/>
+                		
                         <tr>
                             <td>${appointment.groomingOption.groomingType}</td>
-                            <td>
-                                <form:input type="date" path="appointment.appointmentDate" name="appointment.appointmentDate" value="${appointment.appointmentDate}"/>
-                                <form:errors path="appointmentDate" cssClass="error"/>
-                            </td>
-                            <td>                          
-                            	<form:select path="appointment.timeslot.timeSlotId" id="appointment.timeslot.timeSlotId" class="form-control">
-                                    <c:forEach items="${timeSlotList}" var="timeSlotList">
-                            		<c:choose>
-                                	<c:when test="${timeSlotList.timeSlotId eq appointment.timeslot.timeSlotId}">
-                                    	<option value= "${timeSlotList.timeSlotId}" selected="true">${timeSlotList.timeStart}</option>
-                                	</c:when>
-                                	<c:otherwise>
-                                    	<option value="${timeSlotList.timeSlotId}" >${timeSlotList.timeStart}</option>
-                                	</c:otherwise>
-                            		</c:choose>
-                            		</c:forEach>                                    
-                                </form:select>
-                                <form:errors path="timeslot" cssClass="error"/>
-                            </td>
+                            <td>${appointment.appointmentDate}</td>
+                            <td>${appointment.timeslot.timeStart}</td>
                             <td>${appointment.availableDog.breed}</td>
                             <td>${appointment.comment}</td>
-                            <td><a href = "<c:url value='/app/editAppointment' />">Reschedule</a></td>
-                            <td><a href = "<c:url value='/app/deleteAppointment' />">Cancel appointment</a></td>
+                            <td><a href = "<c:url value='/app/editAppointment'>                             
+                            <c:param name='appointmentId' value='${appointment.appointmentId}'/> 
+                            <c:param name='clientId' value='${appointment.client.id}'/>   
+                            </c:url>" >Reschedule</a></td>
+                            <td><a href = "<c:url value='/app/deleteAppointment'>                             
+                            <c:param name='appointmentId' value='${appointment.appointmentId}'/> 
+                            <c:param name='clientId' value='${appointment.client.id}'/>   
+                            </c:url>" >Cancel Appointment</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
