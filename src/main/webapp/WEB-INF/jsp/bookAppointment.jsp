@@ -105,7 +105,6 @@ pageEncoding="ISO-8859-1"%>
                         </div>
                         </br>
                         <div id="dog-info-container">
-
                         </div>
                     </div>
 

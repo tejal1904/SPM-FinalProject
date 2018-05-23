@@ -1,13 +1,7 @@
 package com.petgrooming.springboot.web.controller;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -164,27 +157,6 @@ public class AppController {
     }
     
     
-    /*@RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
-    public String dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result, RedirectAttributes attributes) {
-    	System.out.println("---------->in dog details ");  
-    	HashSet<ClientDog> dogSet = new HashSet<>();
-    	Client client = clientService.findClientById(dogData.get(0).getClientId());
-    	for(ClientDogPojo pojo: dogData) {
-    		ClientDog clientDog = new ClientDog();
-    		clientDog.setClient(clientService.findClientById(pojo.getClientId()));
-    		clientDog.setName(pojo.getName());
-    		clientDog.setBreed(pojo.getBreed());
-    		clientDog.setDateOfBirth(pojo.getDateOfBirth());
-    		clientDog.setClient(client);
-    		dogSet.add(clientDog);
-    	}
-    	client.setDogSet(dogSet);
-    	clientService.updateClient(client);
-    	attributes.addFlashAttribute(client);
-    	System.out.println("dogdata: "+ dogData);
-		return "redirect:book";
-    }*/
-    
     @RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
     public void dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) {
     	System.out.println("---------->in dog details ");  
@@ -206,7 +178,6 @@ public class AppController {
 		//return "redirect:book";
     }
     
-    
     @RequestMapping(value = "/editAppointment")
     public String appointmentEdit(ModelMap model, @RequestParam("appointmentId") int aptid,@RequestParam("clientId") int clientid, RedirectAttributes attributes ) throws Exception
     {
@@ -215,29 +186,7 @@ public class AppController {
     	Client client = clientService.findClientById(clientid);
     	model = populateAppointmentDropDown(model, appointment, client);
     	model.addAttribute(appointment);
-    	
     	return "editAppointment";
-    	/*SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-    	java.util.Date utildate = sdf1.parse(date);
-    	java.sql.Date appointmentDate = new java.sql.Date(utildate.getTime()); 
-    	Client client = clientService.findClientById(clientid);
-    	TimeSlot timeSlot = timeSlotService.getById(Integer.parseInt(time));
-    	boolean check = appointmentService.updateAppointment(aptid, appointmentDate, timeSlot);
-    	if(check) {
-    		Appointment appointment = appointmentService.getAppointmentById(aptid);
-    		model = populateAppointmentDropDown(model, appointment, client);
-            model.addAttribute(client);
-            model.addAttribute(appointment);
-            attributes.addFlashAttribute(client);
-    		return "redirect:book";
-    	}else {
-    		Appointment appointment = appointmentService.getAppointmentById(aptid);
-    		model = populateAppointmentDropDown(model, appointment, client);
-            model.addAttribute(client);
-            model.addAttribute(appointment);
-            return "bookAppointment";
-    	}*/
-    	
     }
     
     @RequestMapping(value = "/appointmentUpdate", method = RequestMethod.POST)
@@ -262,6 +211,27 @@ public class AppController {
             return "editAppointment";
     	}
     }
+    
+    @RequestMapping(value = "/deleteAppointment")
+    public String appointmentDelete(ModelMap model, @RequestParam("appointmentId") int aptid,@RequestParam("clientId") int clientid, RedirectAttributes attributes ) throws Exception
+    {
+    	System.out.println("in delete appointment");
+    	Appointment appointment = appointmentService.getAppointmentById(aptid);
+    	Client client = clientService.findClientById(clientid);
+    	appointmentService.deleteAppointment(appointment);
+    	model = populateAppointmentDropDown(model, appointment, client);
+    	model.addAttribute(appointment);
+    	attributes.addFlashAttribute(appointment.getClient());
+		return "redirect:book";
+    }
+    
+    @RequestMapping(value = "/addDogDetails")
+    public String addDogDetails(ModelMap model, @RequestParam("clientId") int clientid, RedirectAttributes attributes )
+    {
+    	System.out.println("in dog details");
+    	Client client = clientService.findClientById(clientid);
+    	return "dogDetail";
+    }
 
     private static boolean isAfterToday(DateTime date) {
         return DateTimeComparator.getDateOnlyInstance().compare(date, DateTime.now()) > 0;
@@ -275,4 +245,6 @@ public class AppController {
     	model.addAttribute(appointment);
     	return model;
     }
+    
+    
 }

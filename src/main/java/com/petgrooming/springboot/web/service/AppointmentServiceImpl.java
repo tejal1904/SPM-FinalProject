@@ -49,6 +49,12 @@ public class AppointmentServiceImpl implements AppointmentService{
 	public Appointment getAppointmentById(int id) {
 		return appointmentDao.getAppointmentById(id);
 	}
+
+	@Override
+	public void deleteAppointment(Appointment appointment) {
+		appointmentDao.deleteAppointment(appointment);
+		
+	}
 	
 	
 	

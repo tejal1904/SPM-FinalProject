@@ -20,5 +20,7 @@ public interface AppointmentDao {
 	public List<Appointment> getAppointmentForMail();
 	
 	public Appointment getAppointmentById(int id);
+	
+	public void deleteAppointment(Appointment appointment);
 
 }

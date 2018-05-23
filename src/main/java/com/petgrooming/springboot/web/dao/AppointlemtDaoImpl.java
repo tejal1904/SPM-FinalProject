@@ -79,4 +79,9 @@ public class AppointlemtDaoImpl extends AbstractDao<Integer, Appointment> implem
 		return getByKey(id);
 	}
 
+	@Override
+	public void deleteAppointment(Appointment appointment) {
+		getSession().delete(appointment);
+	}
+	
 }

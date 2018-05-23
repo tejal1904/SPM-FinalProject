@@ -9,8 +9,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+ <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
 </head>
 <body>
+<div class="bookAppointmentClass mainContainer">
 
  <form:form method="POST" modelAttribute="appointment" action="/app/appointmentUpdate">
                     <form:input type="hidden" path="appointmentId" id="appointmentId"/>
@@ -70,6 +73,7 @@
 
                     </div>
                 </form:form>
+                </div>
             </div>
 
         </div>
