@@ -378,8 +378,7 @@ pageEncoding="ISO-8859-1"%>
 	                    </div>
 	
 	                    </br>
-	                    <div class="form-group control-group">
-	
+	                    <div class="form-group control-group">	
 	                        <div class="col-sm-3 col-sm-offset-5">
 	                            <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
 	                        </div>
