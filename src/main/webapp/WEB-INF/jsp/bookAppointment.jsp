@@ -117,7 +117,34 @@ pageEncoding="ISO-8859-1"%>
 	                            </div>
 	                        </div>
 	                        </br>
-	                        <div id="dog-info-container">
+	                        <c:if test="${not empty client.dogSet}">
+					    	<c:forEach items="${client.dogSet}" var="dog">
+					    	<table>
+					    	<tr>
+					    	<th>Name</th>
+					    	<th>Breed</th>
+					    	<th>Date of Birth</th>
+					    	</tr>
+					    	<tr>
+					    	<td>${dog.name}</td>
+					    	<td>${dog.breed}</td>
+					    	<td>${dog.dateOfBirth}</td>
+					    	<td><a href = "<c:url value='/app/editClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Edit Dog Details</a></td>
+                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Delete Dog Detail</a></td>
+					    	</tr>
+					    	</table>
+					    	</c:forEach>
+					    </c:if>
+					    <c:if test="${empty client.dogSet}">
+                        <div id="dog-info-container">
+                        </c:if>
+                        </div>
 	                        </div>
 	                    </div>
 	
@@ -319,7 +346,34 @@ pageEncoding="ISO-8859-1"%>
 	                            </div>
 	                        </div>
 	                        </br>
-	                        <div id="dog-info-container">
+	                         <c:if test="${not empty client.dogSet}">
+					    	<c:forEach items="${client.dogSet}" var="dog">
+					    	<table>
+					    	<tr>
+					    	<th>Name</th>
+					    	<th>Breed</th>
+					    	<th>Date of Birth</th>
+					    	</tr>
+					    	<tr>
+					    	<td>${dog.name}</td>
+					    	<td>${dog.breed}</td>
+					    	<td>${dog.dateOfBirth}</td>
+					    	<td><a href = "<c:url value='/app/editClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Edit Dog Details</a></td>
+                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Delete Dog Detail</a></td>
+					    	</tr>
+					    	</table>
+					    	</c:forEach>
+					    </c:if>
+					    <c:if test="${empty client.dogSet}">
+                        <div id="dog-info-container">
+                        </c:if>
+                        </div>
 	                        </div>
 	                    </div>
 	
@@ -545,9 +599,34 @@ pageEncoding="ISO-8859-1"%>
 					    	</table>
 					    	</c:forEach>
 					    </c:if>
+					     <c:if test="${not empty client.dogSet}">
+					    	<c:forEach items="${client.dogSet}" var="dog">
+					    	<table>
+					    	<tr>
+					    	<th>Name</th>
+					    	<th>Breed</th>
+					    	<th>Date of Birth</th>
+					    	</tr>
+					    	<tr>
+					    	<td>${dog.name}</td>
+					    	<td>${dog.breed}</td>
+					    	<td>${dog.dateOfBirth}</td>
+					    	<td><a href = "<c:url value='/app/editClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Edit Dog Details</a></td>
+                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Delete Dog Detail</a></td>
+					    	</tr>
+					    	</table>
+					    	</c:forEach>
+					    </c:if>
 					    <c:if test="${empty client.dogSet}">
                         <div id="dog-info-container">
                         </c:if>
+                        </div>
                         </div>
                     </div>
 
