@@ -98,7 +98,6 @@ public class AppController {
     	if(!clientService.isNewClient(client)) {
     		
     		attributes.addFlashAttribute(client);
-    		attributes.addFlashAttribute("type",  "bookAppointment");
     		return "redirect:book";
     	}else {
     		return "registration";
@@ -161,7 +160,6 @@ public class AppController {
     	clientService.updateClient(client);
     	model.addAttribute(client);
     	attributes.addFlashAttribute(client);
-    	attributes.addFlashAttribute("type", "bookAppointment");
 		return "redirect:book";
     }
     
