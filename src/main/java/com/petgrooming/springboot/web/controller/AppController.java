@@ -160,8 +160,13 @@ public class AppController {
     @RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
     public void dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) {
     	System.out.println("---------->in dog details ");  
-    	HashSet<ClientDog> dogSet = new HashSet<>();
+    	HashSet<ClientDog> dogSet;
     	Client client = clientService.findClientById(dogData.get(0).getClientId());
+    	if(client.getDogSet().size() == 0) {
+    		dogSet = new HashSet<>();
+    	}else {
+    		dogSet = (HashSet<ClientDog>) client.getDogSet();
+    	}
     	for(ClientDogPojo pojo: dogData) {
     		ClientDog clientDog = new ClientDog();
     		clientDog.setClient(clientService.findClientById(pojo.getClientId()));
@@ -224,6 +229,40 @@ public class AppController {
     	attributes.addFlashAttribute(appointment.getClient());
 		return "redirect:book";
     }
+    
+    
+    @RequestMapping(value = "/editClientDog")
+    public String clientDogEdit(ModelMap model, @RequestParam("dogId") int dogid,@RequestParam("clientId") int clientid, RedirectAttributes attributes ) throws Exception
+    {
+    	System.out.println("in edit clientDog");
+    	ClientDog clientDog = clientDogService.getDogById(dogid);
+    	Client client = clientService.findClientById(clientid);
+    	model.addAttribute(client);
+    	model.addAttribute(clientDog);
+    	return "editDog";
+    }
+    
+    @RequestMapping(value = "/dogUpdate", method = RequestMethod.POST)
+    public String clientDogUpdate(@RequestParam("clientId") int clientid, ModelMap model,ClientDog dog, BindingResult result, RedirectAttributes attributes)
+    {
+    	Client client = clientService.findClientById(clientid);
+    	clientDogService.updateDog(dog, client);
+    	attributes.addFlashAttribute(client);
+		return "redirect:book";
+    }
+    
+    @RequestMapping(value = "/deleteClientDog")
+    public String clientDogDelete(ModelMap model, @RequestParam("dogId") int dogid,@RequestParam("clientId") int clientid, RedirectAttributes attributes ) throws Exception
+    {
+    	System.out.println("in delete dog");
+    	ClientDog dog = clientDogService.getDogById(dogid);
+    	Client client = clientService.findClientById(clientid);
+    	client.getDogSet().remove(dog);
+    	clientService.updateClient(client);
+    	attributes.addFlashAttribute(client);
+		return "redirect:book";
+    }
+    
     
     @RequestMapping(value = "/addDogDetails")
     public String addDogDetails(ModelMap model, @RequestParam("clientId") int clientid, RedirectAttributes attributes )

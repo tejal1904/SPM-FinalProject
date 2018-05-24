@@ -25,9 +25,15 @@ public class ClientDogDaoImpl extends AbstractDao<Integer, ClientDog> implements
 	}
 
 	@Override
-	public void update(ClientDog clientdog) {
+	public void update(ClientDog clientdog, Client client) {
+		clientdog.setClient(client);
 		getSession().update(clientdog);
 		
+	}
+
+	@Override
+	public ClientDog findById(int id) {
+		return getByKey(id);
 	}
 
 }

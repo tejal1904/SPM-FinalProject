@@ -50,7 +50,7 @@ public class Client {
     @Column(name = "WORKNO", nullable = true)
     private String workNo;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
 	private Set<ClientDog> dogSet = new HashSet();
     
 	public Client() {

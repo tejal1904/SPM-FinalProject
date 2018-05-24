@@ -11,6 +11,8 @@ public interface ClientDogDao {
 	
 	public List<ClientDog> findAllDogsByClient(int client);
 	
-	public void update(ClientDog clientdog);
+	public void update(ClientDog clientdog, Client client);
+	
+	public ClientDog findById(int id);
 
 }

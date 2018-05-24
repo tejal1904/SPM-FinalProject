@@ -30,10 +30,15 @@ public class ClientDogServiceImpl implements ClientDogService{
 	}
 
 	@Override
-	public void updateDog(ClientDog dog) {
-		clientDogDao.update(dog);
-		
+	public void updateDog(ClientDog dog, Client client) {
+		clientDogDao.update(dog, client);
 	}
+
+	@Override
+	public ClientDog getDogById(int id) {
+		return clientDogDao.findById(id);
+	}
+	
 	
 	
 

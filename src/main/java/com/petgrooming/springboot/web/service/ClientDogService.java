@@ -11,6 +11,8 @@ public interface ClientDogService {
 	
 	public List<ClientDog> findAllDogsOfClient(int client);
 	
-	public void updateDog(ClientDog dog);
+	public void updateDog(ClientDog dog, Client client);
+	
+	public ClientDog getDogById(int id);
 
 }
