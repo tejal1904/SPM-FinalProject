@@ -58,7 +58,7 @@ pageEncoding="ISO-8859-1"%>
 	                            <label class="col-sm-4 control-label">EMail</label>
 	                            <div class="col-sm-8 controls">
 	                                <form:input path="email" type="email" placeholder="email"
-	                                            class="input-xlarge" required="required"/>
+	                                            class="input-xlarge"/>
 	                                <form:errors path="email" cssClass="error"/>
 	                            </div>
 	                        </div>
@@ -66,7 +66,7 @@ pageEncoding="ISO-8859-1"%>
 	                            <label class="col-sm-4 control-label">Password</label>
 	                            <div class="col-sm-8 controls">
 	                                <form:password path="password" placeholder="Password"
-	                                               class="input-xlarge" required="required"/>
+	                                               class="input-xlarge"/>
 	                                <form:errors path="password" cssClass="error"/>
 	                            </div>
 	                        </div>
@@ -287,7 +287,7 @@ pageEncoding="ISO-8859-1"%>
 	                            <label class="col-sm-4 control-label">EMail</label>
 	                            <div class="col-sm-8 controls">
 	                                <form:input path="email" type="email" placeholder="email"
-	                                            class="input-xlarge" required="required"/>
+	                                            class="input-xlarge"/>
 	                                <form:errors path="email" cssClass="error"/>
 	                            </div>
 	                        </div>
@@ -295,7 +295,7 @@ pageEncoding="ISO-8859-1"%>
 	                            <label class="col-sm-4 control-label">Password</label>
 	                            <div class="col-sm-8 controls">
 	                                <form:password path="password" placeholder="Password"
-	                                               class="input-xlarge" required="required"/>
+	                                               class="input-xlarge"/>
 	                                <form:errors path="password" cssClass="error"/>
 	                            </div>
 	                        </div>
