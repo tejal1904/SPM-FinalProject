@@ -50,12 +50,6 @@
                         </div>
                     </div>
                     </br>
-                    </br>
-                    <div class="control-group">
-                        <label class="col-sm-4 control-label"> ${availableDog.breed} </label>
-                        
-                    </div>
-                    </br>
                     <div class="control-group">
                         <label class="col-sm-4 control-label">Additional Comments</label>
                         <div class="col-sm-8 controls">

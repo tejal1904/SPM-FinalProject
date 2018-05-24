@@ -97,6 +97,7 @@ public class AppController {
     	if(!clientService.isNewClient(client)) {
     		
     		attributes.addFlashAttribute(client);
+    		attributes.addFlashAttribute("type",  "bookAppointment");
     		return "redirect:book";
     	}else {
     		return "registration";
@@ -115,6 +116,9 @@ public class AppController {
     	model.addAttribute(client);
     	model.addAttribute(appointmentList);
     	model = populateAppointmentDropDown(model, appointment, client);
+    	if(!model.containsAttribute("type")) {
+    		model.addAttribute("type", "clientInformation");
+    	}
     	return "bookAppointment";
     }
     
@@ -129,6 +133,7 @@ public class AppController {
     		FieldError timeslotError = new FieldError("appointment","appointmentDate","Appointments can be booked only after today.");
             result.addError(timeslotError);
             model.addAttribute(client);
+            model.addAttribute("type", "bookAppointment");
     		return "bookAppointment";
     	}
     	appointment.setClient(client);
@@ -138,9 +143,11 @@ public class AppController {
     		FieldError timeslotError =new FieldError("appointment","timeslot","This time slot is already taken. Please select another time slot");
             result.addError(timeslotError);
             model.addAttribute(client);
+            model.addAttribute("type", "bookAppointment");
     		return "bookAppointment";
     	}else {
     		attributes.addFlashAttribute(client);
+    		attributes.addFlashAttribute("type", "showAppointment");
     		return "redirect:book";
     	}
     	  
@@ -153,6 +160,7 @@ public class AppController {
     	clientService.updateClient(client);
     	model.addAttribute(client);
     	attributes.addFlashAttribute(client);
+    	attributes.addFlashAttribute("type", "bookAppointment");
 		return "redirect:book";
     }
     
@@ -206,6 +214,7 @@ public class AppController {
             model.addAttribute(appointment.getClient());
             model.addAttribute(appointment);
             attributes.addFlashAttribute(appointment.getClient());
+            attributes.addFlashAttribute("type", "showAppointment");
     		return "redirect:book";
     	}else {
     		FieldError timeslotError =new FieldError("appointment","timeslot","This date and time slot is already taken. Please select another time slot");
@@ -227,6 +236,7 @@ public class AppController {
     	model = populateAppointmentDropDown(model, appointment, client);
     	model.addAttribute(appointment);
     	attributes.addFlashAttribute(appointment.getClient());
+    	attributes.addFlashAttribute("type", "showAppointment");
 		return "redirect:book";
     }
     
