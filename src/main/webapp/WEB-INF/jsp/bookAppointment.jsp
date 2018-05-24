@@ -104,7 +104,43 @@ pageEncoding="ISO-8859-1"%>
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-6">
-	                        <div class="control-group">
+	                        
+	                        <c:if test="${not empty client.dogSet}">
+					    	
+					    	    <table class="table table-dark">
+	                    <thead>
+	                    <tr>
+	                       <th>Name</th>
+					    	<th>Breed</th>
+					    	<th>Date of Birth</th>
+	                        <th scope="col"></th>
+	                        <th scope="col"></th>
+	                    </tr>
+	                    </thead>
+	                    <tbody>
+	                    <c:forEach items="${client.dogSet}" var="dog">
+	                		
+	                        <tr>
+	                          	<td>${dog.name}</td>
+					    	<td>${dog.breed}</td>
+					    	<td>${dog.dateOfBirth}</td>
+					    	<td><a href = "<c:url value='/app/editClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Edit Dog Details</a></td>
+                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Delete Dog Detail</a></td>
+	                        </tr>
+	                    </c:forEach>
+	                    </tbody>
+	                </table>
+	            
+					    	
+					    </c:if>
+					    
+					    <div class="control-group">
 	                            <label for="noOfDogs" class="col-sm-4 control-label">No of dogs</label>
 	                            <div class="col-sm-8 controls">
 	                                <select class="form-control" id="noOfDogs">
@@ -117,38 +153,12 @@ pageEncoding="ISO-8859-1"%>
 	                            </div>
 	                        </div>
 	                        </br>
-	                        <c:if test="${not empty client.dogSet}">
-					    	<c:forEach items="${client.dogSet}" var="dog">
-					    	<table>
-					    	<tr>
-					    	<th>Name</th>
-					    	<th>Breed</th>
-					    	<th>Date of Birth</th>
-					    	</tr>
-					    	<tr>
-					    	<td>${dog.name}</td>
-					    	<td>${dog.breed}</td>
-					    	<td>${dog.dateOfBirth}</td>
-					    	<td><a href = "<c:url value='/app/editClientDog'>                             
-                            <c:param name='dogId' value='${dog.clientDogId}'/> 
-                            <c:param name='clientId' value='${client.id}'/>   
-                            </c:url>" >Edit Dog Details</a></td>
-                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
-                            <c:param name='dogId' value='${dog.clientDogId}'/> 
-                            <c:param name='clientId' value='${client.id}'/>   
-                            </c:url>" >Delete Dog Detail</a></td>
-					    	</tr>
-					    	</table>
-					    	</c:forEach>
-					    </c:if>
-					    <c:if test="${empty client.dogSet}">
                         <div id="dog-info-container">
-                        </c:if>
+                      
                         </div>
-	                        </div>
+	                      
 	                    </div>
-	
-	                    </br>
+						</br>
 	                    <div class="form-group control-group">
 	
 	                        <div class="col-sm-3 col-sm-offset-5">
@@ -157,9 +167,8 @@ pageEncoding="ISO-8859-1"%>
 	                    </div>
 	
 	                </form:form>
-	            </div>
-	
-	        </div>
+	            </div>	
+        </div>
         <div id = "bookAppointment" class="navContent" style="display:none;">
            <div class = "bookAppointmentClass">
                <form:form method="POST" modelAttribute="appointment" action="/app/appointmentSave">
@@ -270,7 +279,7 @@ pageEncoding="ISO-8859-1"%>
 	    
     </c:if>
     <c:if test="${type == 'bookAppointment'}">
-    <div id = "clientInformation" class="navContent" style="display:none;">
+<div id = "clientInformation" class="navContent" style="display:none;">
 	            <div class="clientDetails">
 	                <form:form id="client-info-form" method="POST" modelAttribute="client" action = "/app/updateClient">
 	                    <form:input type="hidden" path="id" id="id"/>
@@ -333,7 +342,43 @@ pageEncoding="ISO-8859-1"%>
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-6">
-	                        <div class="control-group">
+	                        
+	                        <c:if test="${not empty client.dogSet}">
+					    	
+					    	    <table class="table table-dark">
+	                    <thead>
+	                    <tr>
+	                       <th>Name</th>
+					    	<th>Breed</th>
+					    	<th>Date of Birth</th>
+	                        <th scope="col"></th>
+	                        <th scope="col"></th>
+	                    </tr>
+	                    </thead>
+	                    <tbody>
+	                    <c:forEach items="${client.dogSet}" var="dog">
+	                		
+	                        <tr>
+	                          	<td>${dog.name}</td>
+					    	<td>${dog.breed}</td>
+					    	<td>${dog.dateOfBirth}</td>
+					    	<td><a href = "<c:url value='/app/editClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Edit Dog Details</a></td>
+                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
+                            <c:param name='dogId' value='${dog.clientDogId}'/> 
+                            <c:param name='clientId' value='${client.id}'/>   
+                            </c:url>" >Delete Dog Detail</a></td>
+	                        </tr>
+	                    </c:forEach>
+	                    </tbody>
+	                </table>
+	            
+					    	
+					    </c:if>
+					    
+					    <div class="control-group">
 	                            <label for="noOfDogs" class="col-sm-4 control-label">No of dogs</label>
 	                            <div class="col-sm-8 controls">
 	                                <select class="form-control" id="noOfDogs">
@@ -346,48 +391,29 @@ pageEncoding="ISO-8859-1"%>
 	                            </div>
 	                        </div>
 	                        </br>
-	                         <c:if test="${not empty client.dogSet}">
-					    	<c:forEach items="${client.dogSet}" var="dog">
-					    	<table>
-					    	<tr>
-					    	<th>Name</th>
-					    	<th>Breed</th>
-					    	<th>Date of Birth</th>
-					    	</tr>
-					    	<tr>
-					    	<td>${dog.name}</td>
-					    	<td>${dog.breed}</td>
-					    	<td>${dog.dateOfBirth}</td>
-					    	<td><a href = "<c:url value='/app/editClientDog'>                             
-                            <c:param name='dogId' value='${dog.clientDogId}'/> 
-                            <c:param name='clientId' value='${client.id}'/>   
-                            </c:url>" >Edit Dog Details</a></td>
-                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
-                            <c:param name='dogId' value='${dog.clientDogId}'/> 
-                            <c:param name='clientId' value='${client.id}'/>   
-                            </c:url>" >Delete Dog Detail</a></td>
-					    	</tr>
-					    	</table>
-					    	</c:forEach>
-					    </c:if>
-					    <c:if test="${empty client.dogSet}">
                         <div id="dog-info-container">
-                        </c:if>
+                      
                         </div>
-	                        </div>
+	                      
 	                    </div>
+<<<<<<< HEAD
 	
 	                    </br>
 	                    <div class="form-group control-group">	
+=======
+						</br>
+	                    <div class="form-group control-group">
+	
+>>>>>>> branch 'master' of https://github.com/tejal1904/SPM-FinalProject
 	                        <div class="col-sm-3 col-sm-offset-5">
 	                            <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
 	                        </div>
 	                    </div>
 	
 	                </form:form>
-	            </div>
-	
-	        </div>
+	            </div>	
+        </div>
+                
         <div id = "bookAppointment" class="navContent">
            <div class = "bookAppointmentClass">
                <form:form method="POST" modelAttribute="appointment" action="/app/appointmentSave">
@@ -498,92 +524,87 @@ pageEncoding="ISO-8859-1"%>
 	    
     </c:if>
     <c:if test="${type == 'showAppointment'}">
-      <div id = "clientInformation" class="navContent" style="display:none;">
-            <div class="clientDetails">
-                <form:form id="client-info-form" method="POST" modelAttribute="client" action = "/app/updateClient">
-                    <form:input type="hidden" path="id" id="id"/>
-                    <input type="hidden" name="clientId" value = "${client.id}"/>
-                    <div class="col-sm-6">
-                        <div class="control-group">
-                            <label for="firstName" class="col-sm-4 control-label">Full Name</label>
-                            <div class="col-sm-8 controls">
-                                <form:input path="name" type="text" id="firstName" placeholder="Full Name" required="required"/>
-                                <form:errors path="name" cssClass="error"/>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">EMail</label>
-                            <div class="col-sm-8 controls">
-                                <form:input path="email" type="email" placeholder="email"
-                                            class="input-xlarge"/>
-                                <form:errors path="email" cssClass="error"/>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Password</label>
-                            <div class="col-sm-8 controls">
-                                <form:password path="password" placeholder="Password"
-                                               class="input-xlarge"/>
-                                <form:errors path="password" cssClass="error"/>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Address</label>
-                            <div class="col-sm-8 controls">
-                                <form:input path="address" type="text" placeholder="Address"
-                                            class="input-xlarge" required="required"/>
-                                <form:errors path="address" cssClass="error"/>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Mobile Number</label>
-                            <div class="col-sm-8 controls">
-                                <form:input path="mobile" id="mobileNumber" name="mobileNumber" type="number" placeholder="61(number)"
-                                            class="input-xlarge" required="required"/>
-                                <form:errors path="mobile" cssClass="error"/>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Home Number</label>
-                            <div class="col-sm-8 controls">
-                                <form:input path="homePhone" id="homeNumber" name="homeNumber" type="number" placeholder="61(number)"
-                                            class="input-xlarge"/>
-                                <form:errors path="homePhone" cssClass="error"/>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="col-sm-4 control-label">Work Phone Number</label>
-                            <div class="col-sm-8 controls">
-                                <form:input path="workNo" id="workNumber" name="workNumber" type="number" placeholder="61(number)"
-                                            class="input-xlarge"/>
-                                <form:errors path="workNo" cssClass="error"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="control-group">
-                            <label for="noOfDogs" class="col-sm-4 control-label">No of dogs</label>
-                            <div class="col-sm-8 controls">
-                                <select class="form-control" id="noOfDogs">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                        </div>
-                        </br>
-                        <c:if test="${not empty client.dogSet}">
-					    	<c:forEach items="${client.dogSet}" var="dog">
-					    	<table>
-					    	<tr>
-					    	<th>Name</th>
+  <div id = "clientInformation" class="navContent" style="display:none;">
+	            <div class="clientDetails">
+	                <form:form id="client-info-form" method="POST" modelAttribute="client" action = "/app/updateClient">
+	                    <form:input type="hidden" path="id" id="id"/>
+	                    <input type="hidden" name="clientId" value = "${client.id}"/>
+	                    <div class="col-sm-6">
+	                        <div class="control-group">
+	                            <label for="firstName" class="col-sm-4 control-label">Full Name</label>
+	                            <div class="col-sm-8 controls">
+	                                <form:input path="name" type="text" id="firstName" placeholder="Full Name" required="required"/>
+	                                <form:errors path="name" cssClass="error"/>
+	                            </div>
+	                        </div>
+	                        <div class="control-group">
+	                            <label class="col-sm-4 control-label">EMail</label>
+	                            <div class="col-sm-8 controls">
+	                                <form:input path="email" type="email" placeholder="email"
+	                                            class="input-xlarge"/>
+	                                <form:errors path="email" cssClass="error"/>
+	                            </div>
+	                        </div>
+	                        <div class="control-group">
+	                            <label class="col-sm-4 control-label">Password</label>
+	                            <div class="col-sm-8 controls">
+	                                <form:password path="password" placeholder="Password"
+	                                               class="input-xlarge"/>
+	                                <form:errors path="password" cssClass="error"/>
+	                            </div>
+	                        </div>
+	                        <div class="control-group">
+	                            <label class="col-sm-4 control-label">Address</label>
+	                            <div class="col-sm-8 controls">
+	                                <form:input path="address" type="text" placeholder="Address"
+	                                            class="input-xlarge" required="required"/>
+	                                <form:errors path="address" cssClass="error"/>
+	                            </div>
+	                        </div>
+	                        <div class="control-group">
+	                            <label class="col-sm-4 control-label">Mobile Number</label>
+	                            <div class="col-sm-8 controls">
+	                                <form:input path="mobile" id="mobileNumber" name="mobileNumber" type="number" placeholder="61(number)"
+	                                            class="input-xlarge" required="required"/>
+	                                <form:errors path="mobile" cssClass="error"/>
+	                            </div>
+	                        </div>
+	                        <div class="control-group">
+	                            <label class="col-sm-4 control-label">Home Number</label>
+	                            <div class="col-sm-8 controls">
+	                                <form:input path="homePhone" id="homeNumber" name="homeNumber" type="number" placeholder="61(number)"
+	                                            class="input-xlarge"/>
+	                                <form:errors path="homePhone" cssClass="error"/>
+	                            </div>
+	                        </div>
+	                        <div class="control-group">
+	                            <label class="col-sm-4 control-label">Work Phone Number</label>
+	                            <div class="col-sm-8 controls">
+	                                <form:input path="workNo" id="workNumber" name="workNumber" type="number" placeholder="61(number)"
+	                                            class="input-xlarge"/>
+	                                <form:errors path="workNo" cssClass="error"/>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-sm-6">
+	                        
+	                        <c:if test="${not empty client.dogSet}">
+					    	
+					    	    <table class="table table-dark">
+	                    <thead>
+	                    <tr>
+	                       <th>Name</th>
 					    	<th>Breed</th>
 					    	<th>Date of Birth</th>
-					    	</tr>
-					    	<tr>
-					    	<td>${dog.name}</td>
+	                        <th scope="col"></th>
+	                        <th scope="col"></th>
+	                    </tr>
+	                    </thead>
+	                    <tbody>
+	                    <c:forEach items="${client.dogSet}" var="dog">
+	                		
+	                        <tr>
+	                          	<td>${dog.name}</td>
 					    	<td>${dog.breed}</td>
 					    	<td>${dog.dateOfBirth}</td>
 					    	<td><a href = "<c:url value='/app/editClientDog'>                             
@@ -594,53 +615,43 @@ pageEncoding="ISO-8859-1"%>
                             <c:param name='dogId' value='${dog.clientDogId}'/> 
                             <c:param name='clientId' value='${client.id}'/>   
                             </c:url>" >Delete Dog Detail</a></td>
-					    	</tr>
-					    	</table>
-					    	</c:forEach>
+	                        </tr>
+	                    </c:forEach>
+	                    </tbody>
+	                </table>
+	            
+					    	
 					    </c:if>
-					     <c:if test="${not empty client.dogSet}">
-					    	<c:forEach items="${client.dogSet}" var="dog">
-					    	<table>
-					    	<tr>
-					    	<th>Name</th>
-					    	<th>Breed</th>
-					    	<th>Date of Birth</th>
-					    	</tr>
-					    	<tr>
-					    	<td>${dog.name}</td>
-					    	<td>${dog.breed}</td>
-					    	<td>${dog.dateOfBirth}</td>
-					    	<td><a href = "<c:url value='/app/editClientDog'>                             
-                            <c:param name='dogId' value='${dog.clientDogId}'/> 
-                            <c:param name='clientId' value='${client.id}'/>   
-                            </c:url>" >Edit Dog Details</a></td>
-                            <td><a href = "<c:url value='/app/deleteClientDog'>                             
-                            <c:param name='dogId' value='${dog.clientDogId}'/> 
-                            <c:param name='clientId' value='${client.id}'/>   
-                            </c:url>" >Delete Dog Detail</a></td>
-					    	</tr>
-					    	</table>
-					    	</c:forEach>
-					    </c:if>
-					    <c:if test="${empty client.dogSet}">
+					    
+					    <div class="control-group">
+	                            <label for="noOfDogs" class="col-sm-4 control-label">No of dogs</label>
+	                            <div class="col-sm-8 controls">
+	                                <select class="form-control" id="noOfDogs">
+	                                    <option>1</option>
+	                                    <option>2</option>
+	                                    <option>3</option>
+	                                    <option>4</option>
+	                                    <option>5</option>
+	                                </select>
+	                            </div>
+	                        </div>
+	                        </br>
                         <div id="dog-info-container">
-                        </c:if>
+                      
                         </div>
-                        </div>
-                    </div>
-
-                    </br>
-                    <div class="form-group control-group">
-
-                        <div class="col-sm-3 col-sm-offset-5">
-                            <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
-                        </div>
-                    </div>
-
-                </form:form>
-            </div>
-
-        </div>
+	                      
+	                    </div>
+						</br>
+	                    <div class="form-group control-group">
+	
+	                        <div class="col-sm-3 col-sm-offset-5">
+	                            <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
+	                        </div>
+	                    </div>
+	
+	                </form:form>
+	            </div>	
+        </div>        
         <div id = "bookAppointment" class="navContent" style="display:none;">
             <div class = "bookAppointmentClass">
                 <form:form method="POST" modelAttribute="appointment" action="/app/appointmentSave">
