@@ -2,6 +2,7 @@ package com.petgrooming.springboot.web.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -168,12 +169,12 @@ public class AppController {
     @RequestMapping(value = "/dogDetails", method = RequestMethod.POST)
     public void dogDetails(ModelMap model, @RequestBody List<ClientDogPojo> dogData, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) {
     	System.out.println("---------->in dog details ");  
-    	HashSet<ClientDog> dogSet;
+    	Set<ClientDog> dogSet;
     	Client client = clientService.findClientById(dogData.get(0).getClientId());
     	if(client.getDogSet().size() == 0) {
     		dogSet = new HashSet<>();
     	}else {
-    		dogSet = (HashSet<ClientDog>) client.getDogSet();
+    		dogSet = client.getDogSet();
     	}
     	for(ClientDogPojo pojo: dogData) {
     		ClientDog clientDog = new ClientDog();

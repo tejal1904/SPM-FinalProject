@@ -396,15 +396,9 @@ pageEncoding="ISO-8859-1"%>
                         </div>
 	                      
 	                    </div>
-<<<<<<< HEAD
-	
-	                    </br>
-	                    <div class="form-group control-group">	
-=======
 						</br>
 	                    <div class="form-group control-group">
 	
->>>>>>> branch 'master' of https://github.com/tejal1904/SPM-FinalProject
 	                        <div class="col-sm-3 col-sm-offset-5">
 	                            <button type="submit" name="updateClient" path="updateClient" id="updateClient"class="btn btn-primary btn-block">Save</button>
 	                        </div>
